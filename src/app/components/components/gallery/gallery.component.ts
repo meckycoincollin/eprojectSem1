@@ -1,127 +1,94 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { Lightbox } from 'ngx-lightbox';
 
-interface Product {
-  id: string;
+interface Car {
+  id: number;
   name: string;
   brand: string;
-  categoryId: string;
-  price: number;
-  discount: number | null;
-  description: string;
   images: string[];
-  inStock: boolean;
-}
-
-interface Category {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
 }
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss']
+
 })
 export class GalleryComponent implements OnInit {
-  products: Product[] = [];
-  categories: Category[] = [];
-  filteredProducts: Product[] = [];
-  selectedCategory: string = 'all';
-  searchKeyword: string = '';
-  loading: boolean = true;
-  error: string = '';
-  selectedProduct: Product | null = null;
-  
-  itemsPerPage: number = 6;
-  currentPage: number = 1;
-  
-  constructor(private dataService: DataService) { }
+  cars: Car[] = [];
+  brands: string[] = [];
+  selectedBrand: string = 'all';
+  _albums: any[] = [];
+  filteredCars: Car[] = [];  
+  pagedCars: Car[] = [];      
+
+  itemsPerPage = 8;
+  currentPage = 1;
+  totalPages = 0;
+
+  constructor(private lightbox: Lightbox) {}
 
   ngOnInit(): void {
-    this.loadGalleryData();
+    // dữ liệu fix cứng
+    this.cars = [
+      { id: 1, name: 'Toyota Camry', brand: 'Toyota', images: ['assets/images/products/audi-pb18-1.jpg'] },
+      { id: 2, name: 'Honda Civic', brand: 'Honda', images: ['assets/images/products/audi-pb18-2.jpg'] },
+      { id: 3, name: 'BMW Vip', brand: 'BMW', images: ['assets/images/products/ev6-gt-1.jpg'] },
+      { id: 4, name: 'Toyota Vios', brand: 'Toyota', images: ['assets/images/products/audi-r8-2.jpg'] },
+      { id: 5, name: 'Audi R8', brand: 'Audi', images: ['assets/images/products/audi-r8-1.jpg'] },
+      { id: 6, name: 'BMW CR-V1', brand: 'BMW', images: ['assets/images/products/bmw-m8-1.jpg'] },
+      { id: 7, name: 'BMW CR-V2', brand: 'BMW', images: ['assets/images/products/bmw-m8-2.jpg'] },
+      { id: 8, name: 'BMW CR-V3', brand: 'BMW', images: ['assets/images/products/bmw-m8-3.jpg'] },
+      { id: 9, name: 'Elantra Sport', brand: 'Elantra', images: ['assets/images/products/elantra-n-1.jpg'] },
+    ];
+
+    this.brands = Array.from(new Set(this.cars.map(c => c.brand)));
+    this.filterProducts('all');
   }
 
-  loadGalleryData(): void {
-    this.dataService.getGalleryData().subscribe({
-      next: (data) => {
-        this.products = data.products || [];
-        this.categories = data.categories || [];
-        this.filteredProducts = [...this.products];
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error loading gallery data:', err);
-        this.error = 'Could not load gallery. Please try again later.';
-        this.loading = false;
-      }
-    });
-  }
-
-  filterByCategory(categoryId: string): void {
-    this.selectedCategory = categoryId;
+  filterProducts(brand: string): void {
+    this.selectedBrand = brand;
     this.currentPage = 1;
-    
-    if (categoryId === 'all') {
-      this.filteredProducts = [...this.products];
+
+    if (brand === 'all') {
+      this.filteredCars = this.cars;
     } else {
-      this.filteredProducts = this.products.filter(product => product.categoryId === categoryId);
+      this.filteredCars = this.cars.filter(c => c.brand === brand);
     }
-    
-    this.applySearch();
+
+    this.totalPages = Math.ceil(this.filteredCars.length / this.itemsPerPage);
+    this.updatePagedCars();
   }
 
-  applySearch(): void {
-    if (this.searchKeyword) {
-      const keyword = this.searchKeyword.toLowerCase();
-      this.filteredProducts = this.filteredProducts.filter(product => 
-        product.name.toLowerCase().includes(keyword) || 
-        product.brand.toLowerCase().includes(keyword)
-      );
-    }
-  }
+updatePagedCars(): void {
+  const start = (this.currentPage - 1) * this.itemsPerPage;
+  const end = start + this.itemsPerPage;
 
-  onSearchChange(): void {
-    this.currentPage = 1;
-    
-    if (this.selectedCategory === 'all') {
-      this.filteredProducts = [...this.products];
-    } else {
-      this.filteredProducts = this.products.filter(product => product.categoryId === this.selectedCategory);
-    }
-    
-    this.applySearch();
-  }
+  // Danh sách xe theo trang
+  this.pagedCars = this.filteredCars.slice(start, end);
 
-  openProductDetail(product: Product): void {
-    this.selectedProduct = product;
-  }
+  // Build lại albums cho Lightbox
+  this._albums = this.pagedCars.map(car => ({
+    src: car.images[0],
+    caption: car.name,
+    thumb: car.images[0],
+  }));
+}
 
-  closeProductDetail(): void {
-    this.selectedProduct = null;
-  }
-
-  get paginatedProducts(): Product[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredProducts.slice(startIndex, startIndex + this.itemsPerPage);
-  }
-
-  get totalPages(): number {
-    return Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+  getPageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
   changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.updatePagedCars();
   }
 
-  getDiscountedPrice(product: Product): number {
-    if (product.discount) {
-      return product.price * (1 - product.discount / 100);
-    }
-    return product.price;
+  openLightbox(index: number): void {
+    this.lightbox.open(this._albums, index);
+  }
+
+  closeLightbox(): void {
+    this.lightbox.close();
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 
+declare var bootstrap: any; 
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -35,5 +36,16 @@ export class AboutComponent implements OnInit {
         console.error('Error loading about data:', err);
       }
     });
+  }
+
+  ngAfterViewInit() {
+    const carouselEl = document.getElementById('showroomCarousel');
+    if (carouselEl) {
+      new bootstrap.Carousel(carouselEl, {
+        interval: 2000,   
+        ride: 'carousel', 
+        wrap: true        
+      });
+    }
   }
 }

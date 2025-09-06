@@ -1,197 +1,146 @@
+<style>
+.brand-filter {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.brand-filter li {
+  margin: 5px;
+}
+
+.brand-filter li a {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 5px;
+  background-color: #212529;
+  color: #fff;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.brand-filter li a:hover {
+  background-color: #f35525;
+}
+
+.brand-filter li a.active {
+  background-color: #f35525;
+  color: #fff;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  gap: 8px;
+}
+
+.pagination li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #212529;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.pagination li a:hover {
+  background-color: #f35525;
+  color: #fff;
+}
+
+.pagination li a.active {
+  background-color: #f35525;
+  color: #fff;
+  font-weight: bold;
+}
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;   /* bo góc cho đẹp */
+  cursor: pointer;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* ảnh lấp đầy, không méo */
+  display: block;
+}
+
+  
+</style>
 <div class="page-heading header-text">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h2>Car Gallery</h2>
-          <ul class="breadcrumb">
-            <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
-            <li class="breadcrumb-item active">Gallery</li>
-          </ul>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <span class="breadcrumb"><a [routerLink]="['/']">Home</a> / Gallery</span>
+        <h3>OUR CARRIO CAR COLLECTIONS</h3>
       </div>
     </div>
   </div>
-  
-  <div class="gallery-section">
-    <div class="container">
-      <!-- Loading Indicator -->
-      <div class="loading-container" *ngIf="loading">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <p>Loading gallery...</p>
-      </div>
-  
-      <!-- Error Message -->
-      <div class="alert alert-danger" *ngIf="error">
-        {{ error }}
-      </div>
-  
-      <!-- Gallery Content -->
-      <div class="gallery-content" *ngIf="!loading && !error">
-        <!-- Filter Section -->
-        <div class="row filter-section mb-4">
-          <div class="col-lg-8">
-            <div class="category-filters">
-              <button 
-                class="btn filter-btn" 
-                [class.active]="selectedCategory === 'all'"
-                (click)="filterByCategory('all')">
-                All cares
-              </button>
-              <ng-container *ngFor="let category of categories">
-                <button 
-                  class="btn filter-btn" 
-                  [class.active]="selectedCategory === category.id"
-                  (click)="filterByCategory(category.id)">
-                  {{ category.name }}
-                </button>
-              </ng-container>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="search-box">
-              <input 
-                type="text" 
-                class="form-control" 
-                placeholder="Search by name or brand..." 
-                [(ngModel)]="searchKeyword"
-                (input)="onSearchChange()">
-              <button class="search-btn" (click)="onSearchChange()">
-                <i class="fa fa-search"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Gallery Grid -->
-        <div class="row gallery-grid">
-          <ng-container *ngIf="paginatedProducts.length === 0">
-            <div class="col-12 text-center no-results">
-              <p>No cares found. Please try a different search or filter.</p>
-            </div>
-          </ng-container>
-          
-          <ng-container *ngFor="let product of paginatedProducts">
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="gallery-item" (click)="openProductDetail(product)">
-                <div class="item-image">
-                  <img [src]="product.images[0]" [alt]="product.name" class="img-fluid">
-                  <div class="hover-overlay">
-                    <div class="overlay-content">
-                      <h5>{{ product.name }}</h5>
-                      <span class="brand">{{ product.brand }}</span>
-                      <div class="price-tag">
-                        <ng-container *ngIf="product.discount">
-                          <span class="original-price">${{ product.price }}</span>
-                          <span class="discounted-price">${{ getDiscountedPrice(product) | number:'1.0-0' }}</span>
-                        </ng-container>
-                        <ng-container *ngIf="!product.discount">
-                          <span class="regular-price">${{ product.price }}</span>
-                        </ng-container>
-                      </div>
-                      <span class="view-details">View Details</span>
-                    </div>
-                  </div>
-                  <div *ngIf="!product.inStock" class="out-of-stock-badge">
-                    Out of Stock
-                  </div>
-                  <div *ngIf="product.discount" class="discount-badge">
-                    -{{ product.discount }}%
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ng-container>
-        </div>
-  
-        <!-- Pagination -->
-        <div class="row pagination-section" *ngIf="filteredProducts.length > itemsPerPage">
-          <div class="col-12">
-            <nav aria-label="Gallery pagination">
-              <ul class="pagination justify-content-center">
-                <li class="page-item" [class.disabled]="currentPage === 1">
-                  <a class="page-link" href="javascript:void(0)" (click)="changePage(currentPage - 1)">
-                    <i class="fa fa-angle-left"></i>
-                  </a>
-                </li>
-                
-                <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
-                  <li class="page-item" [class.active]="currentPage === i + 1">
-                    <a class="page-link" href="javascript:void(0)" (click)="changePage(i + 1)">{{ i + 1 }}</a>
-                  </li>
-                </ng-container>
-                
-                <li class="page-item" [class.disabled]="currentPage === totalPages">
-                  <a class="page-link" href="javascript:void(0)" (click)="changePage(currentPage + 1)">
-                    <i class="fa fa-angle-right"></i>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
+</div>
+
+<div class="container mt-4">
+  <!-- Bộ lọc hãng -->
+  <ul class="brand-filter">
+    <li>
+      <a href="javascript:void(0)"
+         [class.active]="selectedBrand === 'all'"
+         (click)="filterProducts('all')">All Brands</a>
+    </li>
+    <li *ngFor="let brand of brands">
+      <a href="javascript:void(0)"
+         [class.active]="selectedBrand === brand"
+         (click)="filterProducts(brand)">
+        {{ brand }}
+      </a>
+    </li>
+  </ul>
+
+  <!-- Danh sách xe -->
+ <div class="row mt-4">
+  <div class="col-md-3 mb-4" *ngFor="let car of pagedCars; let i = index">
+    <div class="image-wrapper" (click)="openLightbox(i)">
+      <img [src]="car.images[0]"
+           [alt]="car.name"
+           class="img-fluid">
     </div>
   </div>
-  
-  <!-- Product Detail Modal -->
-  <div class="product-detail-modal" *ngIf="selectedProduct" (click)="closeProductDetail()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h3>{{ selectedProduct.name }}</h3>
-        <button type="button" class="close-btn" (click)="closeProductDetail()">
-          <i class="fa fa-times"></i>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="product-images">
-              <div class="main-image">
-                <img [src]="selectedProduct.images[0]" [alt]="selectedProduct.name" class="img-fluid">
-              </div>
-              <div class="thumbnail-images" *ngIf="selectedProduct.images.length > 1">
-                <ng-container *ngFor="let image of selectedProduct.images">
-                  <div class="thumbnail">
-                    <img [src]="image" [alt]="selectedProduct.name" class="img-fluid">
-                  </div>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="product-info">
-              <h4>{{ selectedProduct.brand }}</h4>
-              <div class="price-section">
-                <ng-container *ngIf="selectedProduct.discount">
-                  <span class="original-price">${{ selectedProduct.price }}</span>
-                  <span class="discounted-price">${{ getDiscountedPrice(selectedProduct) | number:'1.0-0' }}</span>
-                  <span class="discount-badge">{{ selectedProduct.discount }}% OFF</span>
-                </ng-container>
-                <ng-container *ngIf="!selectedProduct.discount">
-                  <span class="regular-price">${{ selectedProduct.price }}</span>
-                </ng-container>
-              </div>
-              <div class="availability">
-                <span [class]="selectedProduct.inStock ? 'in-stock' : 'out-of-stock'">
-                  {{ selectedProduct.inStock ? 'In Stock' : 'Out of Stock' }}
-                </span>
-              </div>
-              <div class="description">
-                <p>{{ selectedProduct.description }}</p>
-              </div>
-              <div class="actions">
-                <button class="btn btn-primary" [disabled]="!selectedProduct.inStock">
-                  <i class="fa fa-shopping-cart"></i> Add to Cart
-                </button>
-                <a [routerLink]="['/products', selectedProduct.id]" class="btn btn-outline-primary">
-                  <i class="fa fa-info-circle"></i> More Details
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+</div>
+
+  <!-- Phân trang -->
+  <div class="row" *ngIf="totalPages > 1">
+    <div class="col-lg-12 d-flex justify-content-center">
+      <ul class="pagination">
+        <li *ngIf="currentPage > 1">
+          <a href="javascript:void(0)" (click)="changePage(currentPage - 1)">«</a>
+        </li>
+
+        <li *ngFor="let page of getPageNumbers()">
+          <a href="javascript:void(0)"
+             [class.active]="currentPage === page"
+             (click)="changePage(page)">
+            {{ page }}
+          </a>
+        </li>
+
+        <li *ngIf="currentPage < totalPages">
+          <a href="javascript:void(0)" (click)="changePage(currentPage + 1)">»</a>
+        </li>
+      </ul>
     </div>
   </div>
+</div>
+
+

@@ -180,7 +180,7 @@ filterByBrand(brandId: string) {
     window.scrollTo(0, 0);
   }
 
-  // ✅ Pagination should reflect filtered list, not all cars
+  //  Pagination should reflect filtered list, not all cars
   get totalPages(): number {
     return Math.ceil((this.cars
       .filter(c => !this.selectedCategory || c.categoryId === this.selectedCategory)

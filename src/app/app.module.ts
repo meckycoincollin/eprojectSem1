@@ -17,6 +17,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SafePipe } from './shared/pipes/safe.pipe';
 import { ProductDetailModalComponent } from './shared/product-detail-modal/product-detail-modal.component';
+import { LightboxModule } from 'ngx-lightbox';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ProductDetailModalComponent } from './shared/product-detail-modal/produ
     HttpClientModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    LightboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
