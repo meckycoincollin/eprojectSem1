@@ -383,7 +383,7 @@
       "name": "Audi PB18 e-tron (Show Car)",
       "brandId": "audi",
       "categoryId": "hyper",
-      "price": 0,
+      "price": 123456,
       "discount": null,
       "description": "Electric hyper concept showcasing instant torque and advanced battery tech.",
       "features": [

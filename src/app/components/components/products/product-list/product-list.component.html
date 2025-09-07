@@ -73,16 +73,24 @@
 
           <!-- <span class="category">{{ getBrandName((car as any).brandId) }}</span> -->
 
-          <h6>
-            <span *ngIf="car.discount" class="discount">
+       <h6>
+          <!-- Nếu có discount -->
+          <ng-container *ngIf="car.discount; else normalPrice">
+            <span class="discount">
               {{ car.price | currency:'USD':'symbol':'1.0-0' }}
             </span>
-            {{
-              car.discount
-                ? (car.price * (1 - car.discount/100) | currency:'USD':'symbol':'1.0-0')
-                : (car.price | currency:'USD':'symbol':'1.0-0')
-            }}
-          </h6>
+            <span class="final-price">
+              {{ (car.price * (1 - car.discount / 100)) | currency:'USD':'symbol':'1.0-0' }}
+            </span>
+          </ng-container>
+
+          
+          <ng-template #normalPrice>
+            {{ car.price | currency:'USD':'symbol':'1.0-0' }}
+          </ng-template>
+        </h6>
+
+
 
           <h4>
             <a href="javascript:void(0)" (click)="openCarDetails(car)">{{ car.name }}</a>
