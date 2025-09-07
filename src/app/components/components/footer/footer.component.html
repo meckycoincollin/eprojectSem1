@@ -29,10 +29,10 @@
         <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
           <h5 class="footer-heading">Quick Links</h5>
           <ul class="list-unstyled footer-links">
-            <li><a href="products.html">Products</a></li>
-            <li><a href="technology.html">Technology</a></li>
-            <li><a href="store-locator.html">Store Locator</a></li>
-            <li><a href="support.html">Support</a></li>
+            <li><a [routerLink]="['/products']">Products</a></li>
+            <li><a [routerLink]="['/products']">Brand</a></li>
+            <li><a [routerLink]="['/finance']">Finance</a></li>
+            <li><a [routerLink]="['/warranty']">Warranty</a></li>
           </ul>
         </div>
         
@@ -40,11 +40,11 @@
         <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
           <h5 class="footer-heading">Brands</h5>
           <ul class="list-unstyled footer-links">
-            <li><a href="products.html?category=bmw">BMW</a></li>
-            <li><a href="products.html?category=audi">Audi</a></li>
-            <li><a href="products.html?category=hyundai">Hyundai</a></li>
-            <li><a href="products.html?category=suzuki">Suzuki</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
+            <li><a [routerLink]="['/products']" [queryParams]="{brand: 'bmw'}">BMW</a></li>
+            <li><a [routerLink]="['/products']" [queryParams]="{brand: 'audi'}">Audi</a></li>
+            <li><a [routerLink]="['/products']" [queryParams]="{brand: 'hyundai'}">Hyundai</a></li>
+            <li><a [routerLink]="['/products']" [queryParams]="{brand: 'suzuki'}">Suzuki</a></li>
+            <li><a [routerLink]="['/gallery']">Gallery</a></li>
           </ul>
         </div>
         
@@ -78,7 +78,7 @@
           <p class="mb-0">Copyright &copy; 2025 Carrio Motors Company. All rights reserved.</p>
         </div>
         <div class="col-md-6 text-center text-md-end">
-          <p class="mb-0">Opening Hours: Mon-Sat 8:30AM - 7PM</p>
+          <p class="mb-0">Opening Hours: Mon-Sat 8:30AM - 8PM</p>
         </div>
       </div>
     </div>
