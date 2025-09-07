@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SafePipe } from './shared/pipes/safe.pipe';
 import { ProductDetailModalComponent } from './shared/product-detail-modal/product-detail-modal.component';
 import { LightboxModule } from 'ngx-lightbox';
+import { FinanceComponent } from './components/components/finance/finance.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LightboxModule } from 'ngx-lightbox';
     AboutComponent,
     ContactComponent,
     GalleryComponent,
+    FinanceComponent,
     SafePipe,
     ProductDetailModalComponent
   ],

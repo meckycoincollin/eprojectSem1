@@ -10,38 +10,52 @@
   {{ error }}
 </div>
 
-<div *ngIf="!loading && !error">
-  <div class="main-banner">
-    <div class="owl-carousel owl-banner">
-      <div class="item item-1">
-        <div class="header-text">
-          <span class="category">Luxury <em>Collection</em></span>
-          <h2>Elevate Your Style<br>with Premium Timepieces</h2>
-          <div class="banner-button">
-            <a href="javascript:void(0)" (click)="navigateToCategory('luxury')">Explore Collection</a>
-          </div>
-        </div>
-      </div>
-      <div class="item item-2">
-        <div class="header-text">
-          <span class="category">Vintage <em>Collection</em></span>
-          <h2>Timeless Elegance<br>Classic Designs Redefined</h2>
-          <div class="banner-button">
-            <a href="javascript:void(0)" (click)="navigateToCategory('vintage')">Explore Collection</a>
-          </div>
-        </div>
-      </div>
-      <div class="item item-3">
-        <div class="header-text">
-          <span class="category">Smart <em>Collection</em></span>
-          <h2>Modern Technology<br>Meets Sophisticated Design</h2>
-          <div class="banner-button">
-            <a href="javascript:void(0)" (click)="navigateToCategory('smart')">Explore Collection</a>
-          </div>
+<div *ngIf="!loading && !error" >
+  <div class="main-banner ">
+  <div class="owl-carousel owl-banner">
+    
+    <!-- Premium Cars -->
+    <div class="item item-1">
+      <div class="header-text">
+        <span class="category">Premium <em>Cars</em></span>
+        <h2>Discover Comfort<br>and Cutting-Edge Luxury</h2>
+        <div class="banner-button">
+          <a href="javascript:void(0)" (click)="navigateToCategory('premium')">
+            Explore Premium
+          </a>
         </div>
       </div>
     </div>
+
+    <!-- Sports Cars -->
+    <div class="item item-2">
+      <div class="header-text">
+        <span class="category">Sports <em>Cars</em></span>
+        <h2>Feel the Thrill<br>Performance Meets Design</h2>
+        <div class="banner-button">
+          <a href="javascript:void(0)" (click)="navigateToCategory('sports')">
+            Explore Sports
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supercars -->
+    <div class="item item-3">
+      <div class="header-text">
+        <span class="category">Super<em>cars</em></span>
+        <h2>Experience Extreme<br>Power & Exclusivity</h2>
+        <div class="banner-button">
+          <a href="javascript:void(0)" (click)="navigateToCategory('super')">
+            Explore Supercars
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
+</div>
+
 
   <!-- About Us Section -->
   <div class="featured section">

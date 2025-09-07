@@ -7,11 +7,13 @@ import { WarrantyComponent } from './components/components/warranty/warranty.com
 import { AboutComponent } from './components/components/about/about.component';
 import { ContactComponent } from './components/components/contact/contact.component';
 import { GalleryComponent } from './components/components/gallery/gallery.component';
+import { FinanceComponent } from './components/components/finance/finance.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'products', component: ProductListComponent },
   { path: 'products/:id', component: ProductDetailComponent },
+  { path: 'finance', component: FinanceComponent },
   { path: 'warranty', component: WarrantyComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },

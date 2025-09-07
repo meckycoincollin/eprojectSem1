@@ -1,0 +1,296 @@
+/* ======= Hero / Heading (giữ style cũ, đổi nội dung) ======= */
+// .page-heading {
+//   background-size: cover;
+//   padding: 150px 0;
+//   color: white;
+//   text-align: center;
+//   margin-bottom: 50px;
+
+//   h2 {
+//     color: white;
+//     margin-top: 50px;
+//     font-size: 42px;
+//     font-weight: 700;
+//     margin-bottom: 20px;
+//   }
+
+//   .breadcrumb {
+//     justify-content: center;
+//     background: transparent;
+
+//     .breadcrumb-item {
+//       color: white;
+
+//       a {
+//         color: #f02c00;
+//         text-decoration: none;
+
+//         &:hover {
+//           text-decoration: underline;
+//         }
+//       }
+
+//       &.active {
+//         color: rgba(255, 255, 255, 0.8);
+//       }
+//     }
+//   }
+// }
+
+/* ======= Finance Page ======= */
+.finance {
+  padding: 0 0 70px;
+
+  /* Intro card: Brand / Model / Price */
+  .selectors {
+    border-radius: 8px;
+    overflow: hidden;
+
+    .card-body {
+      padding: 18px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-select,
+    .form-control {
+      padding: 12px 15px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+
+      &:focus {
+        border-color: #f02c00;
+        box-shadow: 0 0 0 0.2rem rgba(240, 44, 0, 0.15);
+      }
+    }
+
+    .price-pill {
+      display: inline-block;
+      padding: 10px 16px;
+      background: #f8f8f8;
+      border: 1px solid #eee;
+      border-radius: 999px;
+      font-weight: 700;
+      color: #333;
+      min-width: 160px;
+      text-align: center;
+    }
+  }
+
+  /* Plans list */
+  .plans {
+    margin-top: 28px;
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 10px;
+
+      &:after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 3px;
+        background: #f02c00;
+        margin: 12px 0 0;
+      }
+    }
+
+    .plan {
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f0f0f0;
+
+      .card-body {
+        padding: 18px;
+      }
+
+      .plan__head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+
+        .plan__title {
+          margin: 0;
+          font-weight: 700;
+          font-size: 18px;
+          color: #222;
+        }
+
+        .badge {
+          background: #212529;
+        }
+      }
+
+      .plan__meta {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0 8px;
+
+        li {
+          font-size: 14px;
+          color: #666;
+          margin-bottom: 6px;
+
+          strong {
+            color: #333;
+          }
+        }
+      }
+
+      .term-chip {
+        display: inline-block;
+        padding: 3px 10px;
+        margin: 0 4px 4px 0;
+        font-size: 12px;
+        border-radius: 999px;
+        background: #f0f0f0;
+        color: #333;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #e7e7e7;
+          color: #f02c00;
+        }
+      }
+
+      .plan__note {
+        font-size: 13px;
+        color: #555;
+        min-height: 36px;
+      }
+
+      .btn {
+        border-color: #f02c00;
+        color: #f02c00;
+
+        &:hover {
+          background: rgba(240, 44, 0, 0.08);
+        }
+      }
+    }
+  }
+
+  /* Calculator area */
+  .calculator {
+    margin-top: 28px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+
+    .card-body {
+      padding: 18px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-control {
+      padding: 12px 15px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+
+      &:focus {
+        border-color: #f02c00;
+        box-shadow: 0 0 0 0.2rem rgba(240, 44, 0, 0.15);
+      }
+    }
+
+    .results {
+      .kpi {
+        background: #fff;
+        border-radius: 10px;
+        border: 1px solid #eee;
+        padding: 12px 14px;
+        text-align: center;
+        height: 100%;
+        transition: transform 0.15s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+
+        .kpi__label {
+          font-size: 12px;
+          color: #777;
+          margin-bottom: 6px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .kpi__value {
+          font-weight: 800;
+          font-size: 18px;
+          color: #111;
+        }
+      }
+    }
+
+    .total {
+      color: #555;
+      font-size: 14px;
+      margin-top: 8px;
+
+      strong {
+        color: #111;
+      }
+    }
+  }
+}
+
+/* ======= Loading (giữ để dùng chung nếu cần) ======= */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+  text-align: center;
+}
+
+/* ======= Responsive ======= */
+@media (max-width: 991px) {
+  .finance {
+    .selectors .price-pill {
+      min-width: auto;
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .page-heading {
+    padding: 70px 0;
+
+    h2 {
+      font-size: 32px;
+    }
+  }
+
+  .finance {
+    .calculator .results .kpi {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.plan.is-active { border-color: #f02c00; box-shadow: 0 0 0 2px rgba(240,44,0,.08); }
+.term-chip { cursor: pointer; user-select: none; }
+.term-chip.active { background:#f02c00 !important; color:#fff !important; }
