@@ -8,7 +8,7 @@ import { FooterComponent } from './components/components/footer/footer.component
 import { HomeComponent } from './components/components/home/home.component';
 import { ProductListComponent } from './components/components/products/product-list/product-list.component';
 import { ProductDetailComponent } from './components/components/products/product-detail/product-detail.component';
-import { StoreLocatorComponent } from './components/components/store-locator/store-locator.component';
+import { WarrantyComponent } from './components/components/warranty/warranty.component';
 import { AboutComponent } from './components/components/about/about.component';
 import { ContactComponent } from './components/components/contact/contact.component';
 import { GalleryComponent } from './components/components/gallery/gallery.component';
@@ -27,7 +27,7 @@ import { LightboxModule } from 'ngx-lightbox';
     HomeComponent,
     ProductListComponent,
     ProductDetailComponent,
-    StoreLocatorComponent,
+    WarrantyComponent,
     AboutComponent,
     ContactComponent,
     GalleryComponent,

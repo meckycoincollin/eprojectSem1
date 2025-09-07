@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/components/home/home.component';
 import { ProductListComponent } from './components/components/products/product-list/product-list.component';
 import { ProductDetailComponent } from './components/components/products/product-detail/product-detail.component';
-import { StoreLocatorComponent } from './components/components/store-locator/store-locator.component';
+import { WarrantyComponent } from './components/components/warranty/warranty.component';
 import { AboutComponent } from './components/components/about/about.component';
 import { ContactComponent } from './components/components/contact/contact.component';
 import { GalleryComponent } from './components/components/gallery/gallery.component';
@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'products', component: ProductListComponent },
   { path: 'products/:id', component: ProductDetailComponent },
-  { path: 'store-locator', component: StoreLocatorComponent },
+  { path: 'warranty', component: WarrantyComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'gallery', component: GalleryComponent },

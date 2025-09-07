@@ -1,0 +1,67 @@
+<div class="page-heading header-text">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2>Warranty Policies</h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/']">Home</a></li>
+          <li class="breadcrumb-item active">Warranty</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <h3 class="mb-4">Warranty Comparison by Brand</h3>
+
+  <!-- Table -->
+  <div class="table-responsive mb-5">
+    <table class="table table-bordered text-center align-middle warranty-table">
+      <thead class="table-dark">
+        <tr>
+          <th>Brand</th>
+          <th>Warranty Duration</th>
+          <th>Mileage Limit</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of warrantyPolicies">
+          <td><strong>{{ item.brand }}</strong></td>
+          <td>{{ item.years }} years</td>
+          <td>{{ item.km | number }} km</td>
+          <td>{{ item.note }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Accordion -->
+  <h4 class="mb-3">Detailed Coverage</h4>
+  <div class="accordion" id="warrantyAccordion">
+    <div class="accordion-item" *ngFor="let item of warrantyPolicies; let i = index">
+      <h2 class="accordion-header" id="heading{{ i }}">
+        <button class="accordion-button collapsed" type="button"
+                data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapse' + i"
+                aria-expanded="false"
+                [attr.aria-controls]="'collapse' + i">
+          {{ item.brand }} — {{ item.years }} years / {{ item.km | number }} km
+        </button>
+      </h2>
+      <div [id]="'collapse' + i"
+           class="accordion-collapse collapse"
+           [attr.aria-labelledby]="'heading' + i"
+           data-bs-parent="#warrantyAccordion">
+        <div class="accordion-body">
+          <p><strong>Notes:</strong> {{ item.note }}</p>
+          <p><strong>Extra Services:</strong></p>
+          <ul>
+            <li *ngFor="let service of item.extraServices">{{ service }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
