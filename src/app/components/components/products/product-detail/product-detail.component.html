@@ -2,8 +2,12 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <span class="breadcrumb"><a [routerLink]="['/']">Home</a> / <a [routerLink]="['/products']">Products</a> / Product Detail</span>
-        <h3>{{ car?.name || 'Product Detail' }}</h3>
+        <span class="breadcrumb">
+          <a [routerLink]="['/']">Home</a> /
+          <a [routerLink]="['/products']">Products</a> /
+          Product Detail
+        </span>
+        <h3>{{ product?.name || 'Product Detail' }}</h3>
       </div>
     </div>
   </div>
@@ -13,159 +17,250 @@
   <div class="spinner-border text-primary" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
-  <p>Loading car details...</p>
+  <p>Loading product details...</p>
 </div>
 
 <div class="alert alert-danger" *ngIf="error">
   {{ error }}
 </div>
 
-<div class="single-property section" *ngIf="!loading && !error && car">
+<div class="single-property section" *ngIf="!loading && !error && product">
   <div class="container">
     <div class="row">
+      <!-- LEFT: gallery + content -->
       <div class="col-lg-8">
         <div class="main-image">
-          <img [src]="car.images[activeImageIndex]" [alt]="car.name">
+          <img [src]="product.images[activeImageIndex]" [alt]="product.name">
         </div>
-        <div class="product-gallery" *ngIf="car.images.length > 1">
+
+        <div class="product-gallery" *ngIf="product.images.length > 1">
           <div class="row">
-            <div class="col-3" *ngFor="let image of car.images; let i = index">
-              <div class="gallery-item" 
-                  style="width: 165px; height: 165px; overflow: hidden; cursor: pointer;" 
-                  [class.active]="i === activeImageIndex" 
-                  (click)="changeImage(i)">
-              <img [src]="image" [alt]="car.name + ' image ' + (i+1)" 
-                    style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
+            <div class="col-3" *ngFor="let image of product.images; let i = index">
+              <div class="gallery-item"
+                   style="width: 165px; height: 165px; overflow: hidden; cursor: pointer;"
+                   [class.active]="i === activeImageIndex"
+                   (click)="changeImage(i)">
+                <img [src]="image" [alt]="product.name + ' image ' + (i+1)"
+                     style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
             </div>
           </div>
         </div>
+
         <div class="main-content">
           <span class="category">{{ category?.name }}</span>
-          <h4>{{ car.name }}</h4>
+          <h4>{{ product.name }}</h4>
+
           <div class="price-section mb-4">
-            <h5 class="price" *ngIf="!car.discount">
-              {{ car.price | currency:'USD':'symbol':'1.0-0' }}
+            <h5 class="price" *ngIf="!product.discount">
+              {{ product.price | currency:'USD':'symbol':'1.0-0' }}
             </h5>
-            <h5 class="price" *ngIf="car.discount">
-              <span class="original-price">{{ car.price | currency:'USD':'symbol':'1.0-0' }}</span>
-              <span class="discounted-price">{{ getDiscountedPrice(car.price, car.discount) | currency:'USD':'symbol':'1.0-0' }}</span>
-              <span class="discount-badge">{{ car.discount }}% OFF</span>
+            <h5 class="price" *ngIf="product.discount">
+              <span class="original-price">
+                {{ product.price | currency:'USD':'symbol':'1.0-0' }}
+              </span>
+              <span class="discounted-price">
+                {{ getDiscountedPrice(product.price, product.discount) | currency:'USD':'symbol':'1.0-0' }}
+              </span>
+              <span class="discount-badge">{{ product.discount }}% OFF</span>
             </h5>
           </div>
+
           <div [innerHTML]="getSanitizedDescription()"></div>
-          <h3>Address:  Carrio Motors - Hanoi ShowRoom - Hoan Kiem Lake, Ha Noi, Vietnam</h3>
-        </div> 
-        <div class="accordion" id="accordionExample">
+
+          <h5 class="mt-3">
+            Address:
+            <span class="text-muted">
+              Chic Lighting &amp; Design – Hanoi Showroom, Hoan Kiem Lake, Ha Noi, Vietnam
+            </span>
+          </h5>
+
+          <!-- download PDF/DOC -->
+          <div class="mt-3">
+            <button class="btn btn-outline-primary me-2" (click)="downloadSpec('pdf')">
+              <i class="fa fa-file-pdf-o me-1"></i> Download Spec (PDF)
+            </button>
+            <button class="btn btn-outline-secondary" (click)="downloadSpec('doc')">
+              <i class="fa fa-file-word-o me-1"></i> Download Spec (DOCX)
+            </button>
+          </div>
+        </div>
+
+        <!-- Accordion: Features / Warranty / Shipping -->
+        <div class="accordion mt-4" id="accordionExample">
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <button class="accordion-button" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                      aria-expanded="true" aria-controls="collapseOne">
                 Features
               </button>
             </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div id="collapseOne"
+                 class="accordion-collapse collapse show"
+                 aria-labelledby="headingOne"
+                 data-bs-parent="#accordionExample">
               <div class="accordion-body">
                 <ul class="features-list">
-                  <li *ngFor="let feature of car.features">{{ feature }}</li>
+                  <li *ngFor="let feature of product.features">{{ feature }}</li>
                 </ul>
               </div>
             </div>
           </div>
+
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Warranty & Care
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                      aria-expanded="false" aria-controls="collapseTwo">
+                Warranty &amp; Care
               </button>
             </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div id="collapseTwo"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="headingTwo"
+                 data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <p><strong>Warranty:</strong> {{ car.warranty }}</p>
-                <p><strong>Care Instructions:</strong> While our cares are designed for durability, we recommend regular maintenance to ensure longevity. Avoid exposure to extreme temperatures, chemicals, and magnetic fields. For mechanical cares, have them serviced every 3-5 years.</p>
+                <p><strong>Warranty:</strong> {{ product.warranty }}</p>
+                <p>
+                  <strong>Care Instructions:</strong>
+                  Our lighting fixtures are designed for durability. Avoid direct impact,
+                  excessive humidity and corrosive environments. Clean with a soft dry cloth
+                  and always switch off the power during installation or maintenance.
+                </p>
               </div>
             </div>
           </div>
+
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingThree">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Shipping & Returns
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                      aria-expanded="false" aria-controls="collapseThree">
+                Shipping &amp; Returns
               </button>
             </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div id="collapseThree"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="headingThree"
+                 data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <p><strong>Shipping:</strong> Free shipping worldwide on all orders over $500. Standard shipping takes 3-5 business days for domestic orders and 7-14 days for international orders.</p>
-                <p><strong>Returns:</strong> We offer a 30-day return policy on all unworn cares in their original condition with all packaging and documentation.</p>
+                <p>
+                  <strong>Shipping:</strong>
+                  Free shipping for eligible orders. Standard delivery: 3–5 business days
+                  within Vietnam (for in-stock items).
+                </p>
+                <p>
+                  <strong>Returns:</strong>
+                  We offer a 30-day return policy for unused products in original packaging,
+                  with invoice and all included accessories.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- RIGHT: specs info-box -->
       <div class="col-lg-4">
         <div class="info-table">
           <ul>
-            <li>
-              <img src="assets/images/icons/movement.png" alt="" style="max-width: 52px;">
-              <h4>{{ car.specifications.movement }}<br><span>Movement</span></h4>
+            <li *ngIf="product.specifications.engine">
+              <img src="assets/images/icons/light-source.png" alt="" style="max-width: 52px;">
+              <h4>
+                {{ product.specifications.engine }}<br>
+                <span>Light Source / Engine</span>
+              </h4>
             </li>
-            <li>
-              <img src="assets/images/icons/case.png" alt="" style="max-width: 52px;">
-              <h4>{{ car.specifications.caseSize }}<br><span>Case Size</span></h4>
+            <li *ngIf="product.specifications.power">
+              <img src="assets/images/icons/power.png" alt="" style="max-width: 52px;">
+              <h4>
+                {{ product.specifications.power }}<br>
+                <span>Power / Output</span>
+              </h4>
             </li>
-            <li>
-              <img src="assets/images/icons/water-resistant.png" alt="" style="max-width: 52px;">
-              <h4>{{ car.specifications.waterResistance }}<br><span>Water Resistance</span></h4>
+            <li *ngIf="product.specifications.drivetrain">
+              <img src="assets/images/icons/area.png" alt="" style="max-width: 52px;">
+              <h4>
+                {{ product.specifications.drivetrain }}<br>
+                <span>Application</span>
+              </h4>
             </li>
-            <li>
-              <img src="assets/images/icons/material.png" alt="" style="max-width: 52px;">
-              <h4>{{ car.specifications.material }}<br><span>Material</span></h4>
+            <li *ngIf="product.specifications.transmission">
+              <img src="assets/images/icons/control.png" alt="" style="max-width: 52px;">
+              <h4>
+                {{ product.specifications.transmission }}<br>
+                <span>Control / Mode</span>
+              </h4>
             </li>
-            <li *ngIf="car.inStock" class="in-stock">
+            <li *ngIf="product.specifications.topSpeed">
+              <img src="assets/images/icons/performance.png" alt="" style="max-width: 52px;">
+              <h4>
+                {{ product.specifications.topSpeed }}<br>
+                <span>Performance / Highlight</span>
+              </h4>
+            </li>
+
+            <li *ngIf="product.inStock" class="in-stock">
               <img src="assets/images/icons/available.png" alt="" style="max-width: 52px;">
               <h4>In Stock<br><span>Available Now</span></h4>
             </li>
-            <li *ngIf="!car.inStock" class="out-of-stock">
+            <li *ngIf="!product.inStock" class="out-of-stock">
               <img src="assets/images/icons/unavailable.png" alt="" style="max-width: 52px;">
               <h4>Out of Stock<br><span>Coming Soon</span></h4>
             </li>
           </ul>
         </div>
-        <!-- <div class="add-to-cart-section">
-          <button [disabled]="!car.inStock" class="add-to-cart-btn">
-            <i class="fa fa-shopping-cart"></i> Add to Cart
-          </button>
-        </div> -->
       </div>
     </div>
   </div>
 </div>
 
-<div class="section best-deal" *ngIf="!loading && !error && car && relatedCars.length > 0">
+<!-- RELATED PRODUCTS -->
+<div class="section best-deal"
+     *ngIf="!loading && !error && product && relatedProducts.length > 0">
   <div class="container">
     <div class="row">
       <div class="col-lg-4">
         <div class="section-heading">
-          <h6>| Similar cares</h6>
+          <h6>| Similar Lights</h6>
           <h2>You May Also Like</h2>
         </div>
       </div>
       <div class="col-lg-12">
         <div class="row related-products">
-          <div class="col-lg-3 col-md-6" *ngFor="let relatedcar of relatedcares">
+          <div class="col-lg-3 col-md-6" *ngFor="let related of relatedProducts">
             <div class="item">
-              <a [routerLink]="['/products', relatedcar.id]" (click)="navigateToProduct(relatedcar.id, $event)">
+              <a [routerLink]="['/products', related.id]"
+                 (click)="navigateToProduct(related.id, $event)">
                 <div style="width: 100%; height: 200px; overflow: hidden; margin-bottom: 15px;">
-                  <img [src]="relatedcar.images[0]" [alt]="relatedcar.name" 
+                  <img [src]="related.images[0]" [alt]="related.name"
                        style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
               </a>
-              <span class="category">{{ relatedcar.brand }}</span>
-              <h5 *ngIf="!relatedcar.discount">{{ relatedcar.price | currency:'USD':'symbol':'1.0-0' }}</h5>
-              <h5 *ngIf="relatedcar.discount">
-                <span class="original-price">{{ relatedcar.price | currency:'USD':'symbol':'1.0-0' }}</span>
-                <span class="discounted-price">{{ getDiscountedPrice(relatedcar.price, relatedcar.discount) | currency:'USD':'symbol':'1.0-0' }}</span>
+              <span class="category">
+                {{ related.categoryId | titlecase }}
+              </span>
+              <h5 *ngIf="!related.discount">
+                {{ related.price | currency:'USD':'symbol':'1.0-0' }}
               </h5>
-              <h4><a [routerLink]="['/products', relatedcar.id]" (click)="navigateToProduct(relatedcar.id, $event)">{{ relatedcar.name }}</a></h4>
+              <h5 *ngIf="related.discount">
+                <span class="original-price">
+                  {{ related.price | currency:'USD':'symbol':'1.0-0' }}
+                </span>
+                <span class="discounted-price">
+                  {{ getDiscountedPrice(related.price, related.discount) | currency:'USD':'symbol':'1.0-0' }}
+                </span>
+              </h5>
+              <h4>
+                <a [routerLink]="['/products', related.id]"
+                   (click)="navigateToProduct(related.id, $event)">
+                  {{ related.name }}
+                </a>
+              </h4>
               <div class="icon-button">
-                <a [routerLink]="['/products', relatedcar.id]" (click)="navigateToProduct(relatedcar.id, $event)">
+                <a [routerLink]="['/products', related.id]"
+                   (click)="navigateToProduct(related.id, $event)">
                   <i class="fa fa-eye"></i> View Details
                 </a>
               </div>

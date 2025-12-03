@@ -29,17 +29,16 @@ export class ContactComponent implements OnInit {
   companyInfo: any = {};
   
   inquirySubjects = [
-  'Vehicle Inquiry',
-  'Test Drive Appointment',
-  'Price Quote',
-  'Service & Maintenance',
-  'Repair Status',
-  'Financing & Leasing Options',
-  'Warranty Claims',
-  'Dealership Information',
-  'Other'
-];
-
+    'Lighting Product Inquiry',
+    'Interior Lighting Consultation',
+    'Custom Lighting Design',
+    'Installation & Setup Service',
+    'Warranty & After-Sales Support',
+    'Bulk / Project Quotation',
+    'Store / Designer Partnership',
+    'Online Order & Delivery Support',
+    'Other'
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -49,7 +48,7 @@ export class ContactComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.pattern("^[0-9+\\-\\s]+$")]],
-      subject: ['Product Inquiry', Validators.required],
+      subject: ['Lighting Product Inquiry', Validators.required],
       message: ['', [Validators.required, Validators.minLength(10)]],
       storeLocation: ['', Validators.required],
       agreement: [false, Validators.requiredTrue]
@@ -93,7 +92,7 @@ export class ContactComponent implements OnInit {
   resetForm() {
     this.submitted = false;
     this.contactForm.reset({
-      subject: 'Product Inquiry',
+      subject: 'Lighting Product Inquiry',
       storeLocation: '',
       agreement: false
     });

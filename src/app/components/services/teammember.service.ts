@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError, shareReplay } from 'rxjs/operators';
 
 export interface TeamMember {
-  id: number;
+  id: string;           
   name: string;
   title: string;
   image: string;
@@ -15,10 +15,10 @@ export interface TeamMember {
   providedIn: 'root'
 })
 export class TeamMembersService {
-  private dataUrl = 'assets/data/carrio-motors-data.json';
+  private dataUrl = 'assets/data/Chic_Lighting_and_Design.json';
   private teamMemberData: Observable<any> | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private getData(): Observable<any> {
     if (!this.teamMemberData) {
@@ -33,22 +33,18 @@ export class TeamMembersService {
     return this.teamMemberData;
   }
 
-  // Get all TeamMembers
   getAllTeamMembers(): Observable<TeamMember[]> {
-    return this.getData().pipe(
-      map(data => data.TeamMembers)
-    );
+    return this.getData().pipe(map(data => data.teamMembers));
   }
 
-  // Get TeamMember by ID
-  getTeamMemberById(TeamMemberId: number): Observable<TeamMember> {
+  getTeamMemberById(teamMemberId: string): Observable<TeamMember> {
     return this.getData().pipe(
       map(data => {
-        const TeamMember = data.TeamMembers.find((t: TeamMember) => t.id === TeamMemberId);
-        if (!TeamMember) {
-          throw new Error(`TeamMember with ID ${TeamMemberId} not found`);
+        const member = data.teamMembers.find((t: TeamMember) => t.id === teamMemberId);
+        if (!member) {
+          throw new Error(`TeamMember with ID ${teamMemberId} not found`);
         }
-        return TeamMember;
+        return member;
       }),
       catchError(error => {
         console.error('Error getting TeamMember by ID', error);
@@ -57,37 +53,27 @@ export class TeamMembersService {
     );
   }
 
-  // Get random TeamMembers
   getRandomTeamMembers(count: number = 2): Observable<TeamMember[]> {
     return this.getData().pipe(
       map(data => {
-        const TeamMembers = [...data.TeamMembers];
+        const members = [...data.teamMembers];
         const result: TeamMember[] = [];
-        
-        // Ensure we don't request more TeamMembers than exist
-        const requestCount = Math.min(count, TeamMembers.length);
-        
-        // Simple random selection
+        const requestCount = Math.min(count, members.length);
+
         for (let i = 0; i < requestCount; i++) {
-          const randomIndex = Math.floor(Math.random() * TeamMembers.length);
-          result.push(TeamMembers[randomIndex]);
-          // Remove selected TeamMember to avoid duplicates
-          TeamMembers.splice(randomIndex, 1);
+          const randomIndex = Math.floor(Math.random() * members.length);
+          result.push(members[randomIndex]);
+          members.splice(randomIndex, 1);
         }
-        
+
         return result;
       })
     );
   }
-  
-  // Get featured TeamMember (for display on homepage)
+
   getFeaturedTeamMember(): Observable<TeamMember> {
     return this.getData().pipe(
-      map(data => {
-        // Could implement more sophisticated logic here to pick a truly featured one
-        // For now, just return the first one
-        return data.TeamMembers[0];
-      })
+      map(data => data.teamMembers[0])
     );
   }
 }

@@ -1,78 +1,91 @@
 import { Component, OnInit } from '@angular/core';
 import { Lightbox } from 'ngx-lightbox';
+import { DataService } from '../../services/data.service';
 
-interface Car {
-  id: number;
+interface GalleryItem {
+  id: string;
   name: string;
-  brand: string;
+  brandId: string;
   images: string[];
 }
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-
+  styleUrls: ['./gallery.component.scss'] 
 })
 export class GalleryComponent implements OnInit {
-  cars: Car[] = [];
-  brands: string[] = [];
+  items: GalleryItem[] = [];
+  brands: { id: string; name: string }[] = [];
   selectedBrand: string = 'all';
+
+  filteredItems: GalleryItem[] = [];
+  pagedItems: GalleryItem[] = [];
   _albums: any[] = [];
-  filteredCars: Car[] = [];  
-  pagedCars: Car[] = [];      
 
   itemsPerPage = 8;
   currentPage = 1;
   totalPages = 0;
 
-  constructor(private lightbox: Lightbox) {}
+  constructor(
+    private lightbox: Lightbox,
+    private dataService: DataService
+  ) {}
 
   ngOnInit(): void {
-    // dữ liệu fix cứng
-    this.cars = [
-      { id: 1, name: 'Toyota Camry', brand: 'Toyota', images: ['assets/images/products/audi-pb18-1.jpg'] },
-      { id: 2, name: 'Honda Civic', brand: 'Honda', images: ['assets/images/products/audi-pb18-2.jpg'] },
-      { id: 3, name: 'BMW Vip', brand: 'BMW', images: ['assets/images/products/ev6-gt-1.jpg'] },
-      { id: 4, name: 'Toyota Vios', brand: 'Toyota', images: ['assets/images/products/audi-r8-2.jpg'] },
-      { id: 5, name: 'Audi R8', brand: 'Audi', images: ['assets/images/products/audi-r8-1.jpg'] },
-      { id: 6, name: 'BMW CR-V1', brand: 'BMW', images: ['assets/images/products/bmw-m8-1.jpg'] },
-      { id: 7, name: 'BMW CR-V2', brand: 'BMW', images: ['assets/images/products/bmw-m8-2.jpg'] },
-      { id: 8, name: 'BMW CR-V3', brand: 'BMW', images: ['assets/images/products/bmw-m8-3.jpg'] },
-      { id: 9, name: 'Elantra Sport', brand: 'Elantra', images: ['assets/images/products/elantra-n-1.jpg'] },
-    ];
-
-    this.brands = Array.from(new Set(this.cars.map(c => c.brand)));
-    this.filterProducts('all');
+    this.loadData();
   }
 
-  filterProducts(brand: string): void {
-    this.selectedBrand = brand;
+  loadData(): void {
+    this.dataService.getProductListPageData().subscribe({
+      next: (data) => {
+        this.items = (data.products || []).map((p: any) => ({
+          id: p.id,
+          name: p.name,
+          brandId: p.brandId,    
+          images: p.images || []
+        }));
+
+        // Lấy brands từ JSON
+        this.brands = (data.brands || []).map((b: any) => ({
+          id: b.id,
+          name: b.name
+        }));
+
+        this.filterProducts('all');
+      },
+      error: (err) => {
+        console.error('Error loading gallery data', err);
+      }
+    });
+  }
+
+  filterProducts(brandId: string): void {
+    this.selectedBrand = brandId;
     this.currentPage = 1;
 
-    if (brand === 'all') {
-      this.filteredCars = this.cars;
+    if (brandId === 'all') {
+      this.filteredItems = this.items;
     } else {
-      this.filteredCars = this.cars.filter(c => c.brand === brand);
+      this.filteredItems = this.items.filter(i => i.brandId === brandId);
     }
 
-    this.totalPages = Math.ceil(this.filteredCars.length / this.itemsPerPage);
-    this.updatePagedCars();
+    this.totalPages = Math.ceil(this.filteredItems.length / this.itemsPerPage) || 0;
+    this.updatePagedItems();
   }
 
-updatePagedCars(): void {
-  const start = (this.currentPage - 1) * this.itemsPerPage;
-  const end = start + this.itemsPerPage;
+  updatePagedItems(): void {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
 
-  // Danh sách xe theo trang
-  this.pagedCars = this.filteredCars.slice(start, end);
+    this.pagedItems = this.filteredItems.slice(start, end);
 
-  // Build lại albums cho Lightbox
-  this._albums = this.pagedCars.map(car => ({
-    src: car.images[0],
-    caption: car.name,
-    thumb: car.images[0],
-  }));
-}
+    this._albums = this.pagedItems.map(item => ({
+      src: item.images && item.images[0] ? item.images[0] : 'assets/images/default-light.jpg',
+      caption: item.name,
+      thumb: item.images && item.images[0] ? item.images[0] : 'assets/images/default-light.jpg'
+    }));
+  }
 
   getPageNumbers(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
@@ -81,7 +94,7 @@ updatePagedCars(): void {
   changePage(page: number): void {
     if (page < 1 || page > this.totalPages) return;
     this.currentPage = page;
-    this.updatePagedCars();
+    this.updatePagedItems();
   }
 
   openLightbox(index: number): void {
@@ -90,5 +103,10 @@ updatePagedCars(): void {
 
   closeLightbox(): void {
     this.lightbox.close();
+  }
+
+  getBrandName(brandId: string): string {
+    const b = this.brands.find(x => x.id === brandId);
+    return b?.name ?? brandId;
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../../services/data.service';
-import { Car } from '../../../services/cars.service';
+import { Product } from '../../../services/products.service';
 import { Location } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -11,8 +11,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
-  car: Car | null = null;
-  relatedCars: Car[] = [];
+  product: Product | null = null;
+  relatedProducts: Product[] = [];
   category: any;
   loading: boolean = true;
   error: string = '';
@@ -40,9 +40,9 @@ export class ProductDetailComponent implements OnInit {
 
     this.dataService.getProductDetailPageData(id).subscribe({
       next: (data) => {
-        this.car = data.product;
+        this.product = data.product;
         this.category = data.category;
-        this.relatedCars = data.relatedProducts;
+        this.relatedProducts = data.relatedProducts;
         this.loading = false;
         setTimeout(() => {
           this.initializeTabs();
@@ -69,14 +69,14 @@ export class ProductDetailComponent implements OnInit {
 
   getDiscountedPrice(price: number, discount: number | null): number {
     if (discount) {
-      return price * (1 - discount/100);
+      return price * (1 - discount / 100);
     }
     return price;
   }
 
   getSanitizedDescription() {
-    if (this.car && this.car.description) {
-      return this.sanitizer.bypassSecurityTrustHtml(this.car.description);
+    if (this.product && this.product.description) {
+      return this.sanitizer.bypassSecurityTrustHtml(this.product.description);
     }
     return '';
   }
@@ -84,13 +84,23 @@ export class ProductDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
   navigateToProduct(productId: string, event?: Event): void {
     if (event) {
-      event.preventDefault(); 
+      event.preventDefault();
     }
     
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate(['/products', productId]);
     });
   }
+
+// ===== Download PDF/DOC =====
+getSpecUrl(format: 'pdf' | 'doc'): string {
+  if (!this.product) return '';
+  const basePath = 'assets/docs/products';
+  const fileName = this.product.id;
+  const ext = format === 'pdf' ? 'pdf' : 'docx';
+  return `${basePath}/${fileName}.${ext}`;
+}
 }

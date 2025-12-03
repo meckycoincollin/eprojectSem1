@@ -2,8 +2,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12 mt-5">
-        <h3>Our Carrio Car </h3>
-        <span class="breadcrumb"><a [routerLink]="['/']">Home</a> / <b class="text-danger ">Products</b> </span>
+        <h3>Our Lighting Collections</h3>
+        <span class="breadcrumb">
+          <a [routerLink]="['/']">Home</a> /
+          <b class="text-danger">Products</b>
+        </span>
       </div>
     </div>
   </div>
@@ -13,7 +16,7 @@
   <div class="spinner-border text-primary" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
-  <p>Loading amazing Carrio...</p>
+  <p>Loading amazing lights...</p>
 </div>
 
 <div class="alert alert-danger" *ngIf="error">
@@ -22,110 +25,121 @@
 
 <div *ngIf="!loading && !error" class="section properties">
   <div class="container">
-    <!-- Category filter -->
-<ul class="properties-filter categories" *ngIf="activeFilter === 'category'">
-  <li>
-    <a href="#"
-       (click)="onCategoryClick($event, '')"
-       [class.is_active]="!selectedCategory"
-       data-filter="*">
-      All Collections
-    </a>
-  </li>
-  <li *ngFor="let category of categories">
-    <a href="#"
-       (click)="onCategoryClick($event, category.id)"
-       [class.is_active]="selectedCategory === category.id"
-       [attr.data-filter]="'.' + category.id">
-      {{ category.name }}
-    </a>
-  </li>
-</ul>
 
-<!-- Brand filter: chỉ hiện khi activeFilter === 'brand' -->
-<ul class="properties-filter brands mt-2" *ngIf="activeFilter === 'brand'">
-  <li>
-    <a href="#"
-       (click)="onBrandClick($event, '')"
-       [class.is_active]="!selectedBrand">
-      All Brands
-    </a>
-  </li>
-  <li *ngFor="let b of brands">
-    <a href="#"
-       (click)="onBrandClick($event, b.id)"
-       [class.is_active]="selectedBrand === b.id">
-      {{ b.name }}
-    </a>
-  </li>
-</ul>
-   
+    <!-- Category filter -->
+    <ul class="properties-filter categories" *ngIf="activeFilter === 'category'">
+      <li>
+        <a href="#" (click)="onCategoryClick($event, '')" [class.is_active]="!selectedCategory" data-filter="*">
+          All Collections
+        </a>
+      </li>
+      <li *ngFor="let category of categories">
+        <a href="#" (click)="onCategoryClick($event, category.id)" [class.is_active]="selectedCategory === category.id"
+          [attr.data-filter]="'.' + category.id">
+          {{ category.name }}
+        </a>
+      </li>
+    </ul>
+
+    <!-- Brand filter -->
+    <ul class="properties-filter brands mt-2" *ngIf="activeFilter === 'brand'">
+      <li>
+        <a href="#" (click)="onBrandClick($event, '')" [class.is_active]="!selectedBrand">
+          All Brands
+        </a>
+      </li>
+      <li *ngFor="let b of brands">
+        <a href="#" (click)="onBrandClick($event, b.id)" [class.is_active]="selectedBrand === b.id">
+          {{ b.name }}
+        </a>
+      </li>
+    </ul>
 
     <div class="row properties-box">
-      <div *ngFor="let car of filteredcars"
-           class="col-lg-4 col-md-6 align-self-center mb-30 properties-items {{ car.categoryId }}">
+      <div *ngFor="let product of filteredProducts"
+        class="col-lg-4 col-md-6 align-self-center mb-30 properties-items {{ product.categoryId }}">
         <div class="item">
-          <a href="javascript:void(0)" (click)="openCarDetails(car)">
+          <a href="javascript:void(0)" (click)="openProductDetails(product)">
             <img style="width: 295px; height: 295px; object-fit: contain;"
-                 [src]="car.images && car.images.length > 0 ? car.images[0] : 'assets/images/default-car.jpg'"
-                 [alt]="car.name">
+              [src]="product.images && product.images.length > 0 ? product.images[0] : 'assets/images/default-light.jpg'"
+              [alt]="product.name">
           </a>
 
-          <!-- <span class="category">{{ getBrandName((car as any).brandId) }}</span> -->
+          <!-- Optional: brand tag -->
+          <!-- <span class="category">{{ getBrandName((product as any).brandId) }}</span> -->
 
-       <h6>
-          <!-- Nếu có discount -->
-          <ng-container *ngIf="car.discount; else normalPrice">
-            <span class="discount">
-              {{ car.price | currency:'USD':'symbol':'1.0-0' }}
-            </span>
-            <span class="final-price">
-              {{ (car.price * (1 - car.discount / 100)) | currency:'USD':'symbol':'1.0-0' }}
-            </span>
-          </ng-container>
+          <div class="product-header d-flex justify-content-between align-items-center mt-2 mb-2">
+            <h4 class="product-name mb-0">
+              <a href="javascript:void(0)" (click)="openProductDetails(product)">
+                {{ product.name }}
+              </a>
+            </h4>
 
-          
-          <ng-template #normalPrice>
-            {{ car.price | currency:'USD':'symbol':'1.0-0' }}
-          </ng-template>
-        </h6>
+            <h6 class="product-price mb-0 text-end">
+              <ng-container *ngIf="product.discount; else normalPrice">
+                <span class="discount">
+                  {{ product.price | currency:'USD':'symbol':'1.0-0' }}
+                </span>
+                <span class="final-price">
+                  {{ (product.price * (1 - product.discount / 100)) | currency:'USD':'symbol':'1.0-0' }}
+                </span>
+              </ng-container>
 
+              <ng-template #normalPrice>
+                {{ product.price | currency:'USD':'symbol':'1.0-0' }}
+              </ng-template>
+            </h6>
+          </div>
 
 
           <h4>
-            <a href="javascript:void(0)" (click)="openCarDetails(car)">{{ car.name }}</a>
+            <a href="javascript:void(0)" (click)="openProductDetails(product)">
+              {{ product.name }}
+            </a>
           </h4>
 
           <ul>
-            <li *ngIf="car.specifications?.engine">Engine: <span>{{ car.specifications.engine }}</span></li>
-            <li *ngIf="car.specifications?.power">Power: <span>{{ car.specifications.power }}</span></li>
-            <li *ngIf="car.specifications?.drivetrain">Drivetrain: <span>{{ car.specifications.drivetrain }}</span></li>
-            <li *ngIf="car.specifications?.transmission">Transmission: <span>{{ car.specifications.transmission }}</span></li>
-            <li *ngIf="car.specifications?.topSpeed">Top Speed: <span>{{ car.specifications.topSpeed }}</span></li>
-            <li *ngIf="car.specifications?.zeroToHundred">0–100: <span>{{ car.specifications.zeroToHundred }}</span></li>
-            <li>Warranty: <span>{{ car.warranty }}</span></li>
-            <li>Availability:
-              <span [class.text-success]="car.inStock" [class.text-danger]="!car.inStock">
-                {{ car.inStock ? 'In Stock' : 'Out of Stock' }}
+            <li *ngIf="product.specifications?.engine">
+              Light Source: <span>{{ product.specifications.engine }}</span>
+            </li>
+            <li *ngIf="product.specifications?.power">
+              Power / Output: <span>{{ product.specifications.power }}</span>
+            </li>
+            <li *ngIf="product.specifications?.drivetrain">
+              Application: <span>{{ product.specifications.drivetrain }}</span>
+            </li>
+            <li *ngIf="product.specifications?.transmission">
+              Control / Mode: <span>{{ product.specifications.transmission }}</span>
+            </li>
+            <li *ngIf="product.specifications?.topSpeed">
+              Performance: <span>{{ product.specifications.topSpeed }}</span>
+            </li>
+            <li *ngIf="product.specifications?.zeroToHundred">
+              Notes: <span>{{ product.specifications.zeroToHundred }}</span>
+            </li>
+            <li>Warranty: <span>{{ product.warranty }}</span></li>
+            <li>
+              Availability:
+              <span [class.text-success]="product.inStock" [class.text-danger]="!product.inStock">
+                {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
               </span>
             </li>
           </ul>
 
           <div class="main-button">
-            <a href="javascript:void(0)" (click)="openCarDetails(car)">View Details</a>
+            <a href="javascript:void(0)" (click)="openProductDetails(product)">View Details</a>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Pagination -->
-    <div class="row" *ngIf="(cars?.length || 0) > itemsPerPage">
+    <div class="row" *ngIf="(products?.length || 0) > itemsPerPage">
       <div class="col-lg-12">
         <ul class="pagination">
           <li *ngFor="let page of getPageNumbers()">
-            <a [class.is_active]="currentPage === page"
-               href="javascript:void(0)"
-               (click)="changePage(page)">{{ page }}</a>
+            <a [class.is_active]="currentPage === page" href="javascript:void(0)" (click)="changePage(page)">{{ page
+              }}</a>
           </li>
           <li *ngIf="currentPage < totalPages">
             <a href="javascript:void(0)" (click)="changePage(currentPage + 1)">&gt;&gt;</a>
@@ -136,11 +150,7 @@
   </div>
 </div>
 
-<app-product-detail-modal
-  [car]="selectedCar"
-  [category]="selectedCarCategory"
-  [relatedCars]="relatedCars"
-  [loading]="modalLoading"
-  (closeModal)="onCloseModal()"
-  (viewRelatedCar)="onViewRelatedCar($event)">
+<app-product-detail-modal [product]="selectedProduct" [category]="selectedProductCategory"
+  [relatedProducts]="relatedProducts" [loading]="modalLoading" (closeModal)="onCloseModal()"
+  (viewRelatedProduct)="onViewRelatedProduct($event)">
 </app-product-detail-modal>

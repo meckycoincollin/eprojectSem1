@@ -28,7 +28,7 @@ export interface Company {
 
 export interface Statistics {
   yearsInBusiness: number;
-  vehiclesServiced: number;
+  LightServiced: number;        
   brandsAvailable: number;
   satisfiedCustomers: number;
   visitorsCount: number;
@@ -38,7 +38,7 @@ export interface Statistics {
   providedIn: 'root'
 })
 export class CompanyService {
-  private dataUrl = 'assets/data/carrio-motors-data.json';
+  private dataUrl = 'assets/data/Chic_Lighting_and_Design.json';
   private companyData: Observable<any> | null = null;
 
   constructor(private http: HttpClient) { }
@@ -56,70 +56,41 @@ export class CompanyService {
     return this.companyData;
   }
 
-  // Get company information
   getCompanyInfo(): Observable<Company> {
-    return this.getData().pipe(
-      map(data => data.company)
-    );
+    return this.getData().pipe(map(data => data.company));
   }
-  
-  // Get company statistics
+
   getStatistics(): Observable<Statistics> {
-    return this.getData().pipe(
-      map(data => data.statistics)
-    );
+    return this.getData().pipe(map(data => data.statistics));
   }
-  
-  // Get visitor count
+
   getVisitorCount(): Observable<number> {
+    return this.getData().pipe(map(data => data.statistics.visitorsCount));
+  }
+
+  incrementVisitorCount(): Observable<number> {
     return this.getData().pipe(
-      map(data => data.statistics.visitorsCount)
+      map(data => data.statistics.visitorsCount + 1)
     );
   }
 
-  // Update visitor count (in a real application, this would interact with a backend)
-  incrementVisitorCount(): Observable<number> {
-    return this.getData().pipe(
-      map(data => {
-        // In a real application, this would be a POST request to update the counter
-        // For this demo, we'll just return the incremented value without actually changing it
-        return data.statistics.visitorsCount + 1;
-      })
-    );
-  }
-  
-  // Get company founding year
   getFoundingYear(): Observable<number> {
-    return this.getData().pipe(
-      map(data => data.company.founded)
-    );
+    return this.getData().pipe(map(data => data.company.founded));
   }
-  
-  // Get years in business
+
   getYearsInBusiness(): Observable<number> {
-    return this.getData().pipe(
-      map(data => data.statistics.yearsInBusiness)
-    );
+    return this.getData().pipe(map(data => data.statistics.yearsInBusiness));
   }
-  
-  // Get social media links
-  getSocialMediaLinks(): Observable<{[key: string]: string}> {
-    return this.getData().pipe(
-      map(data => data.company.socialMedia)
-    );
+
+  getSocialMediaLinks(): Observable<{ [key: string]: string }> {
+    return this.getData().pipe(map(data => data.company.socialMedia));
   }
-  
-  // Get contact information
-  getContactInfo(): Observable<{email: string; phone: string; address: string}> {
-    return this.getData().pipe(
-      map(data => data.company.contact)
-    );
+
+  getContactInfo(): Observable<{ email: string; phone: string; address: string }> {
+    return this.getData().pipe(map(data => data.company.contact));
   }
-  
-  // Get opening hours
-  getOpeningHours(): Observable<{weekdays: string; saturday: string; sunday: string}> {
-    return this.getData().pipe(
-      map(data => data.company.openingHours)
-    );
+
+  getOpeningHours(): Observable<{ weekdays: string; saturday: string; sunday: string }> {
+    return this.getData().pipe(map(data => data.company.openingHours));
   }
 }

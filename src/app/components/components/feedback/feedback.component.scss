@@ -1,0 +1,239 @@
+:host {
+  display: block;
+  background: #f5f7fb;
+  padding-bottom: 60px;
+}
+
+.contact-section {
+  padding: 60px 0;
+}
+
+.contact-form-container,
+.contact-info-container {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 28px 30px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form-container::before,
+.contact-info-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(243, 85, 37, 0.08), transparent 60%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.contact-form-container > *,
+.contact-info-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+.form-header h3,
+.info-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.form-header p,
+.info-header p {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-bottom: 18px;
+}
+
+.form-control,
+.form-select,
+textarea.form-control {
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background-color: #f9fafb;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+  outline: none;
+  border-color: #f35525;
+  box-shadow: 0 0 0 0.15rem rgba(243, 85, 37, 0.18);
+  background-color: #ffffff;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.required {
+  color: #e11d48;
+}
+
+/* Valid / invalid */
+.is-invalid {
+  border-color: #ef4444 !important;
+}
+
+.is-valid {
+  border-color: #16a34a !important;
+}
+
+.invalid-feedback {
+  display: block;
+  font-size: 0.78rem;
+  margin-top: 4px;
+}
+
+/* Checkbox */
+.form-check-input {
+  cursor: pointer;
+}
+
+.form-check-label {
+  font-size: 0.88rem;
+  color: #4b5563;
+}
+
+
+.btn.btn-primary {
+  background: linear-gradient(135deg, #f97316, #ef4444);
+  border: none;
+  border-radius: 999px;
+  padding: 0.6rem 1.6rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn.btn-primary:hover {
+  background: linear-gradient(135deg, #ea580c, #dc2626);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(248, 113, 113, 0.35);
+}
+
+/* Rating stars */
+.rating-input {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rating-input .fa {
+  cursor: pointer;
+  font-size: 1.15rem;
+  transition: transform 0.15s ease, color 0.15s ease;
+  color: #d1d5db;
+}
+
+.rating-input .fa.fa-star {
+  color: #facc15;
+}
+
+.rating-input .fa:hover {
+  transform: scale(1.1);
+}
+
+.rating-text {
+  font-size: 0.88rem;
+  color: #6b7280;
+}
+
+.feedback-item {
+  background-color: #f9fafb;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(156, 163, 175, 0.25);
+}
+
+.feedback-item h5 {
+  font-size: 0.98rem;
+  margin: 0;
+}
+
+.feedback-item .badge {
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.feedback-item p {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.feedback-item hr {
+  border-color: rgba(209, 213, 219, 0.6);
+}
+.rating-display .fa {
+  font-size: 0.8rem;
+}
+
+.rating-value {
+  font-size: 0.8rem;
+}
+
+/* Empty state */
+.empty-state {
+  background-color: #f9fafb;
+  border-radius: 14px;
+  padding: 16px 18px;
+  border: 1px dashed #cbd5f5;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.social-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111827;
+  color: #ffffff;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.social-icon:hover {
+  background: #f97316;
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+  .contact-section {
+    padding: 40px 0;
+  }
+
+  .contact-form-container,
+  .contact-info-container {
+    margin-bottom: 24px;
+    padding: 22px 20px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .contact-form-container,
+  .contact-info-container {
+    padding: 18px 15px;
+    border-radius: 14px;
+  }
+}

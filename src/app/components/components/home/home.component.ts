@@ -2,8 +2,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../services/data.service';
-import { CarsService, Car, Category } from '../../services/cars.service';
-import { CompanyService, Statistics } from '../../services/company.service';
+import { Product, Category } from '../../services/products.service';
+import { Statistics } from '../../services/company.service';
 import { Router } from '@angular/router';
 import { ProductModalService } from '../../services/product-modal.service';
 import Swal from 'sweetalert2';
@@ -19,7 +19,7 @@ declare var $: any;
 export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild(ProductDetailModalComponent) productModal!: ProductDetailModalComponent;
   
-  featuredCars: Car[] = [];
+  featuredProducts: Product[] = [];
   categories: Category[] = [];
   statistics: Statistics | null = null;
   companyInfo: any = null;
@@ -27,15 +27,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   error = '';
   contactForm: FormGroup;
   
-  selectedCar: Car | null = null;
+  selectedProduct: Product | null = null;
   selectedCategory: any = null;
-  relatedCars: Car[] = [];
+  relatedProducts: Product[] = [];
   modalLoading: boolean = false;
 
   constructor(
     private dataService: DataService,
-    private carService: CarsService,
-    private companyService: CompanyService,
     private productModalService: ProductModalService,
     private router: Router,
     private fb: FormBuilder
@@ -46,8 +44,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.loadAllData();
   }
   
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   initContactForm(): void {
     this.contactForm = this.fb.group({
@@ -69,7 +66,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.contactForm.reset();
     } else {
       Object.keys(this.contactForm.controls).forEach(key => {
-        this.contactForm.get(key).markAsTouched();
+        this.contactForm.get(key)?.markAsTouched();
       });
     }
   }
@@ -77,7 +74,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   loadAllData(): void {
     this.dataService.getHomePageData().subscribe({
       next: (data) => {
-        this.featuredCars = data.featuredCars;
+        this.featuredProducts = data.featuredProducts;
         this.categories = data.categories;
         this.statistics = data.statistics;
         this.companyInfo = data.company;
@@ -96,15 +93,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
   
-  openCarDetails(Car: Car): void {
+  openProductDetails(product: Product): void {
     this.modalLoading = true;
-    this.selectedCar = Car;
+    this.selectedProduct = product;
     
-    this.productModalService.getProductDetail(Car.id).subscribe({
+    this.productModalService.getProductDetail(product.id).subscribe({
       next: (data) => {
-        this.selectedCar = data.product;
+        this.selectedProduct = data.product;
         this.selectedCategory = data.category;
-        this.relatedCars = data.relatedProducts;
+        this.relatedProducts = data.relatedProducts;
         this.modalLoading = false;
         
         this.productModal.show();
@@ -118,11 +115,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   
   onCloseModal(): void {
-    this.selectedCar = null;
+    this.selectedProduct = null;
   }
   
-  onViewRelatedCar(Car: Car): void {
-    this.openCarDetails(Car);
+  onViewRelatedProduct(product: Product): void {
+    this.openProductDetails(product);
   }
 
   initializeTabs(): void {
@@ -159,7 +156,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }, {
         duration: 2000,
         easing: 'swing',
-        step: function(now) {
+        step: function(now: number) {
           $(this).text(Math.ceil(now).toLocaleString());
         }
       });

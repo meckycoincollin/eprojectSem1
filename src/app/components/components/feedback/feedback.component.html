@@ -1,0 +1,236 @@
+<div class="page-heading header-text">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 mt-5">
+        <h3>Feedback</h3>
+        <span class="breadcrumb">
+          <a [routerLink]="['/']">Home</a> /
+          <b class="text-danger">Feedback</b>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="contact-section">
+  <div class="container">
+    <div class="row">
+      <!-- FORM (reuse Contact form layout & CSS) -->
+      <div class="col-lg-6">
+        <div class="contact-form-container">
+          <div class="form-header">
+            <h3>Share Your Experience</h3>
+            <p>
+              Tell us what you think about our lighting products, showrooms, and services.
+              Your feedback helps us improve Chic Lighting &amp; Design.
+            </p>
+          </div>
+
+          <div *ngIf="success" class="alert alert-success">
+            <h4 class="alert-heading">Thank you for your feedback!</h4>
+            <p>Your feedback has been submitted successfully.</p>
+            <button class="btn btn-outline-success mt-2" (click)="success = false">
+              Submit Another Feedback
+            </button>
+          </div>
+
+          <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" *ngIf="!success">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label for="name">Full Name <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    formControlName="name"
+                    [ngClass]="getFieldClass('name')"
+                    placeholder="Your full name"
+                  >
+                  <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                    <div *ngIf="f['name'].errors['required']">Name is required</div>
+                    <div *ngIf="f['name'].errors['minlength']">
+                      Name must be at least 2 characters
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label for="email">Email Address <span class="required">*</span></label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    formControlName="email"
+                    [ngClass]="getFieldClass('email')"
+                    placeholder="Your email address"
+                  >
+                  <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                    <div *ngIf="f['email'].errors['required']">Email is required</div>
+                    <div *ngIf="f['email'].errors['email']">
+                      Please enter a valid email address
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Topic & Store -->
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label for="topic">Feedback Topic <span class="required">*</span></label>
+                  <select
+                    class="form-select"
+                    id="topic"
+                    formControlName="topic"
+                    [ngClass]="getFieldClass('topic')"
+                  >
+                    <option *ngFor="let t of topics" [value]="t.value">
+                      {{ t.label }}
+                    </option>
+                  </select>
+                  <div *ngIf="submitted && f['topic'].errors" class="invalid-feedback">
+                    <div *ngIf="f['topic'].errors['required']">Please select a topic</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group mb-3">
+                  <label for="storeLocationId">Visited Store (optional)</label>
+                  <select
+                    class="form-select"
+                    id="storeLocationId"
+                    formControlName="storeLocationId"
+                  >
+                    <option value="">Online only</option>
+                    <option *ngFor="let store of storeLocations" [value]="store.id">
+                      {{ store.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rating -->
+            <div class="form-group mb-3">
+              <label>Overall Rating <span class="required">*</span></label>
+              <div class="rating-input">
+                <ng-container *ngFor="let r of ratingOptions">
+                  <i
+                    class="fa"
+                    [ngClass]="r <= feedbackForm.value.rating ? 'fa-star' : 'fa-star-o'"
+                    (click)="setRating(r)"
+                  ></i>
+                </ng-container>
+                <span class="rating-text">
+                  {{ feedbackForm.value.rating }} / 5
+                </span>
+              </div>
+              <div *ngIf="submitted && f['rating'].errors" class="text-danger small mt-1">
+                Please select a rating between 1 and 5.
+              </div>
+            </div>
+
+            <!-- Message -->
+            <div class="form-group mb-3">
+              <label for="message">Your Feedback <span class="required">*</span></label>
+              <textarea
+                class="form-control"
+                id="message"
+                formControlName="message"
+                [ngClass]="getFieldClass('message')"
+                rows="5"
+                placeholder="Tell us what you loved or what we can improve"
+              ></textarea>
+              <div *ngIf="submitted && f['message'].errors" class="invalid-feedback">
+                <div *ngIf="f['message'].errors['required']">Feedback is required</div>
+                <div *ngIf="f['message'].errors['minlength']">
+                  Feedback must be at least 10 characters
+                </div>
+              </div>
+            </div>
+
+            <!-- Allow share -->
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="allowShare"
+                formControlName="allowShare"
+              >
+              <label class="form-check-label" for="allowShare">
+                I allow Chic Lighting &amp; Design to use my feedback (without sensitive details)
+                on the website or in marketing materials.
+              </label>
+            </div>
+
+            <!-- Submit -->
+            <div class="form-group mb-3">
+              <button type="submit" class="btn btn-primary" [disabled]="loading">
+                <span
+                  *ngIf="loading"
+                  class="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                {{ loading ? 'Submitting...' : 'Submit Feedback' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: recent feedback, reuse card style via contact-info-container -->
+      <div class="col-lg-6">
+        <div class="contact-info-container">
+          <div class="info-header">
+            <h3>Recent Viewer Feedback</h3>
+            <p>Some of the latest feedback submitted by our visitors.</p>
+          </div>
+
+          <div *ngIf="feedbackList.length === 0" class="empty-state">
+            <p>No feedback submitted yet. Be the first to share your experience!</p>
+          </div>
+
+          <div *ngFor="let fb of feedbackList" class="feedback-item">
+            <div class="feedback-top d-flex justify-content-between">
+              <div>
+                <h5>{{ fb.name }}</h5>
+                <small class="badge bg-light text-dark">{{ fb.topic }}</small>
+                <div class="rating-display mt-1">
+                  <ng-container *ngFor="let s of [1,2,3,4,5]">
+                    <i
+                      class="fa"
+                      [ngClass]="s <= fb.rating ? 'fa-star text-warning' : 'fa-star-o text-muted'"
+                    ></i>
+                  </ng-container>
+                  <span class="rating-value ms-1 text-muted">{{ fb.rating }}/5</span>
+                </div>
+              </div>
+              <div class="text-end">
+                <small class="text-muted">
+                  {{ fb.createdAt | date:'MMM d, y, HH:mm' }}<br>
+                  <span *ngIf="getStoreNameById(fb.storeLocationId)">
+                    <i class="fa fa-map-marker-alt text-danger"></i>
+                    {{ getStoreNameById(fb.storeLocationId) }}
+                  </span>
+                  <span *ngIf="!getStoreNameById(fb.storeLocationId)">
+                    <i class="fa fa-globe text-primary"></i> Online
+                  </span>
+                </small>
+              </div>
+            </div>
+            <p class="mt-2 mb-0">
+              “{{ fb.message }}”
+            </p>
+            <hr class="mt-3 mb-2">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

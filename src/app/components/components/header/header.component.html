@@ -1,72 +1,172 @@
 <header class="header-area header-sticky">
+  <!-- TOP BAR -->
   <div class="header-top">
     <div class="container">
       <div class="row align-items-center">
+        <!-- Phone + Email -->
         <div class="col-lg-6 col-md-6">
           <div class="top-info">
-            <i class="fas fa-phone-alt"></i> <span>+84 123 456 7890</span>
-            <i class="fas fa-envelope ms-3"></i> <span>info@carriomotors.com</span>
+            <i class="fas fa-phone-alt"></i>
+            <span>{{ companyInfo?.contact?.phone || '+84 123 456 7890' }}</span>
+
+            <i class="fas fa-envelope ms-3"></i>
+            <span>{{ companyInfo?.contact?.email || 'info@chiclighting.vn' }}</span>
           </div>
         </div>
+
+        <!-- Visitor counter -->
         <div class="col-lg-6 col-md-6">
           <div class="top-info text-end">
             <div class="visitor-counter">
-              <i class="fas fa-users"></i> <span id="visitorCount">1,256</span> visitors online
+              <i class="fas fa-users"></i>
+              <span id="visitorCount">
+                {{ (statistics?.visitorsCount || 0) | number }}
+              </span>
+              visitors online
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-   
+
+  <!-- MAIN HEADER -->
   <div class="main-header">
     <div class="container">
       <div class="row align-items-center">
+        <!-- Logo -->
         <div class="col-lg-3 col-md-3 col-9">
           <a [routerLink]="['/']" class="logo">
-
-            <img src="assets/images/CarrioMotorcars-logo.png" alt="Alberto Clocks">
-
+            <img src="assets/images/Chic_Lighting_and_Design.png"
+                 alt="Chic Lighting &amp; Design Vietnam">
           </a>
         </div>
-         
+
+        <!-- NAV -->
         <div class="col-lg-9 col-md-9 col-3">
           <nav class="main-nav">
             <ul class="nav-menu">
-              <li class="nav-item"><a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
-               
+              <li class="nav-item">
+                <a [routerLink]="['/']"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{exact: true}">
+                  Home
+                </a>
+              </li>
+
+              <!-- PRODUCTS DROPDOWN -->
               <li class="nav-item dropdown" (click)="toggleDropdown($event)" #productsDropdown>
                 <a class="nav-link">
                   Products <i class="fas fa-chevron-down"></i>
                 </a>
                 <ul class="dropdown-menu" [ngClass]="{'show': isDropdownOpen}">
-                  <li><a class="dropdown-item" [routerLink]="['/products']" [queryParams]="{category: 'premium'}">Premium Cars</a></li>
-                  <li><a class="dropdown-item" [routerLink]="['/products']" [queryParams]="{category: 'sports'}">Sports Cars</a></li>
-                  <li><a class="dropdown-item" [routerLink]="['/products']" [queryParams]="{category: 'super'}">Supercars</a></li>
-                  <li><a class="dropdown-item" [routerLink]="['/products']" [queryParams]="{category: 'hyper'}">Hypercars</a></li>
-                  <li><a class="dropdown-item" [routerLink]="['/products']">All Products</a></li>
+                  <!-- Dùng đúng categoryId trong JSON -->
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']"
+                       [queryParams]="{category: 'ceiling'}">
+                      CEILING LIGHTS
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']"
+                       [queryParams]="{category: 'lamps'}">
+                      LAMPS
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']"
+                       [queryParams]="{category: 'outdoor'}">
+                      OUTDOOR LIGHTS
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']"
+                       [queryParams]="{category: 'homeAccent'}">
+                      HOME ACCENTS &amp; SMART
+                    </a>
+                  </li>
+                  <!-- Có thể thêm 1 mục cho All -->
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']">
+                      All Products
+                    </a>
+                  </li>
                 </ul>
               </li>
-              <li class="nav-item dropdown" (click)="toggleDropdown($event)" #productsDropdown>
+
+              <!-- BRANDS DROPDOWN -->
+              <li class="nav-item dropdown" (click)="toggleDropdown($event)" #brandsDropdown>
                 <a class="nav-link">
                   Brands <i class="fas fa-chevron-down"></i>
                 </a>
                 <ul class="dropdown-menu" [ngClass]="{'show': isDropdownOpen}">
-                  <li><a class="dropdown-item" [routerLink]="['/products']" [queryParams]="{brand: 'bmw'}">BMW</a></li>
-                  <li><a class="dropdown-item" [routerLink]="['/products']" [queryParams]="{brand: 'audi'}">Audi</a></li>
-                  <li><a class="dropdown-item" [routerLink]="['/products']" [queryParams]="{brand: 'hyundai'}">Hyundai</a></li>
-                  <li><a class="dropdown-item" [routerLink]="['/products']" [queryParams]="{brand: 'suzuki'}">Suzuki</a></li>
-                  <li><a class="dropdown-item" [routerLink]="['/products']" [queryParams]="{brand: 'kia'}">Kia</a></li>
-                  <li><a class="dropdown-item" [routerLink]="['/products']">All Products</a></li>
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']"
+                       [queryParams]="{brand: 'philips'}">
+                      Philips
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']"
+                       [queryParams]="{brand: 'osram'}">
+                      OSRAM
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']"
+                       [queryParams]="{brand: 'artemide'}">
+                      Artemide
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']"
+                       [queryParams]="{brand: 'deltalight'}">
+                      Delta Light
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']"
+                       [queryParams]="{brand: 'tomdixon'}">
+                      Tom Dixon
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item"
+                       [routerLink]="['/products']">
+                      All Products
+                    </a>
+                  </li>
                 </ul>
               </li>
-              <li class="nav-item"><a [routerLink]="['/warranty']" routerLinkActive="active">Warranty</a></li>
-              <li class="nav-item"><a [routerLink]="['/finance']" routerLinkActive="active">Finance</a></li>
-              <li class="nav-item"><a [routerLink]="['/gallery']" routerLinkActive="active">Gallery</a></li>
-              <li class="nav-item"><a [routerLink]="['/about']" routerLinkActive="active">About Us</a></li>
-              <li class="nav-item"><a [routerLink]="['/contact']" routerLinkActive="active">Contact</a></li>
+
+              <li class="nav-item">
+                <a [routerLink]="['/warranty']" routerLinkActive="active">Warranty</a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/feedback']" routerLinkActive="active">Feedback</a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/gallery']" routerLinkActive="active">Gallery</a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/about']" routerLinkActive="active">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/contact']" routerLinkActive="active">Contact</a>
+              </li>
             </ul>
-             
+
+            <!-- MOBILE MENU BUTTON -->
             <a class="menu-trigger">
               <span></span>
               <span></span>

@@ -31,7 +31,7 @@ export class AboutComponent implements OnInit {
         
       },
       error: (err) => {
-        this.error = 'Không thể tải thông tin. Vui lòng thử lại sau.';
+        this.error = 'Cannot load about us data. Please try again later.';
         this.loading = false;
         console.error('Error loading about data:', err);
       }

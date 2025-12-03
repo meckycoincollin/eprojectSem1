@@ -1,12 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { StoreLocation, StoreLocatorService } from '../../services/store-locator.service';
-
+import { Component } from '@angular/core';
 
 interface WarrantyPolicy {
   brand: string;
   years: number;
-  km: number;
+  hours: number;
   note: string;
   extraServices: string[];
 }
@@ -19,58 +16,58 @@ interface WarrantyPolicy {
 export class WarrantyComponent {
   warrantyPolicies: WarrantyPolicy[] = [
     {
-      brand: 'BMW',
+      brand: 'Philips',
       years: 3,
-      km: 100_000,
-      note: 'Covers engine, transmission, electrical systems, and drivetrain.',
+      hours: 25000,
+      note: 'Warranty applies to most indoor LED products including flickering, dimming issues, or non-operational fixtures.',
       extraServices: [
-        '24/7 Roadside Assistance',
-        'Free maintenance for 1 year',
-        'Extended powertrain coverage options'
+        '1-to-1 replacement within the first 12 months (conditions apply)',
+        'Basic lighting design consultation',
+        'Electrical system check for bulk installation'
       ]
     },
     {
-      brand: 'Audi',
+      brand: 'OSRAM',
+      years: 3,
+      hours: 30000,
+      note: 'Focused on energy-efficient LED solutions for residential and commercial lighting.',
+      extraServices: [
+        'Lighting temperature & CRI consultation',
+        'In-store product replacement support',
+        'Project discount program for large quantities'
+      ]
+    },
+    {
+      brand: 'Artemide',
       years: 5,
-      km: 150_000,
-      note: 'Premium extended coverage with technology support.',
+      hours: 50000,
+      note: 'Premium decorative and architectural lighting collections with extended warranty.',
       extraServices: [
-        '24/7 Roadside support',
-        'Complimentary software updates',
-        'Battery & hybrid system warranty'
+        'High-end lighting design advisory',
+        'Technical support according to official installation guidelines',
+        'Replacement support for drivers and LED modules'
       ]
     },
     {
-      brand: 'Hyundai',
+      brand: 'Delta Light',
+      years: 5,
+      hours: 50000,
+      note: 'Architectural lighting solutions for hotels, villas, studios, and showrooms with exceptional durability.',
+      extraServices: [
+        'Advanced lighting layout consultation',
+        'Glare & workspace lighting assessment',
+        'Full coverage for LED modules and drivers during warranty'
+      ]
+    },
+    {
+      brand: 'Tom Dixon',
       years: 2,
-      km: 80_000,
-      note: 'Applies to sedans and SUVs; standard coverage.',
+      hours: 20000,
+      note: 'Designer lighting focused on aesthetics, material finishing, and contemporary décor.',
       extraServices: [
-        'Basic roadside assistance',
-        'Anti-perforation (rust) warranty',
-        'Free check-up within the first year'
-      ]
-    },
-    {
-      brand: 'Suzuki',
-      years: 3,
-      km: 100_000,
-      note: 'Compact and utility vehicles with reliable coverage.',
-      extraServices: [
-        'Standard roadside support',
-        'Rust perforation coverage',
-        'Extended warranty available on request'
-      ]
-    },
-    {
-      brand: 'Kia',
-      years: 5,
-      km: 150_000,
-      note: 'Strong value coverage across all models.',
-      extraServices: [
-        'Roadside assistance package',
-        'Corrosion protection up to 7 years',
-        'Optional extended powertrain warranty'
+        'Care and surface maintenance guidance',
+        'Collection styling consultation',
+        'Support for ordering replacement parts and accessories'
       ]
     }
   ];

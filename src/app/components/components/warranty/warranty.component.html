@@ -1,18 +1,19 @@
-
 <div class="page-heading header-text">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 mt-5">
         <h3>Warranty Policies</h3>
-        <span class="breadcrumb"><a [routerLink]="['/']">Home</a> / <b class="text-danger ">Warranty</b> </span>
+        <span class="breadcrumb">
+          <a [routerLink]="['/']">Home</a> /
+          <b class="text-danger">Warranty</b>
+        </span>
       </div>
     </div>
   </div>
 </div>
 
-
 <div class="container my-5">
-  <h3 class="mb-4">Warranty Comparison by Brand</h3>
+  <h3 class="mb-4">Warranty Comparison by Lighting Brand</h3>
 
   <!-- Table -->
   <div class="table-responsive mb-5">
@@ -21,15 +22,15 @@
         <tr>
           <th>Brand</th>
           <th>Warranty Duration</th>
-          <th>Mileage Limit</th>
-          <th>Notes</th>
+          <th>Lifetime (Up to)</th>
+          <th>Description</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of warrantyPolicies">
           <td><strong>{{ item.brand }}</strong></td>
           <td>{{ item.years }} years</td>
-          <td>{{ item.km | number }} km</td>
+          <td>{{ item.hours | number }} hours</td>
           <td>{{ item.note }}</td>
         </tr>
       </tbody>
@@ -37,28 +38,35 @@
   </div>
 
   <!-- Accordion -->
-  <h4 class="mb-3">Detailed Coverage</h4>
+  <h4 class="mb-3">Detailed Coverage & Extra Services</h4>
   <div class="accordion" id="warrantyAccordion">
     <div class="accordion-item" *ngFor="let item of warrantyPolicies; let i = index">
       <h2 class="accordion-header" id="heading{{ i }}">
-        <button class="accordion-button collapsed" type="button"
+        <button class="accordion-button collapsed"
+                type="button"
                 data-bs-toggle="collapse"
                 [attr.data-bs-target]="'#collapse' + i"
                 aria-expanded="false"
                 [attr.aria-controls]="'collapse' + i">
-          {{ item.brand }} — {{ item.years }} years / {{ item.km | number }} km
+          {{ item.brand }} — {{ item.years }} years / {{ item.hours | number }} hours
         </button>
       </h2>
+
       <div [id]="'collapse' + i"
            class="accordion-collapse collapse"
            [attr.aria-labelledby]="'heading' + i"
            data-bs-parent="#warrantyAccordion">
         <div class="accordion-body">
-          <p><strong>Notes:</strong> {{ item.note }}</p>
+          <p><strong>Description:</strong> {{ item.note }}</p>
           <p><strong>Extra Services:</strong></p>
           <ul>
-            <li *ngFor="let service of item.extraServices">{{ service }}</li>
+            <li *ngFor="let s of item.extraServices">{{ s }}</li>
           </ul>
+
+          <small class="text-muted">
+            * Warranty terms may vary depending on product category (indoor / outdoor, decorative / architectural, 
+            integrated LED / separate driver).
+          </small>
         </div>
       </div>
     </div>

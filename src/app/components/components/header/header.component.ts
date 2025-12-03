@@ -1,4 +1,5 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CompanyService, Company, Statistics } from 'src/app/components/services/company.service';
 
 @Component({
   selector: 'app-header',
@@ -6,21 +7,25 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  companyInfo: Company | null = null;
+  statistics: Statistics | null = null;
+
   isDropdownOpen = false;
-  @ViewChild('productsDropdown') productsDropdown: ElementRef;
-  constructor() { }
+
+  constructor(private companyService: CompanyService) {}
 
   ngOnInit(): void {
-  }
-  toggleDropdown(event: Event) {
-    event.stopPropagation();
-    this.isDropdownOpen = !this.isDropdownOpen;
+    this.companyService.getCompanyInfo().subscribe({
+      next: (c) => this.companyInfo = c
+    });
+
+    this.companyService.getStatistics().subscribe({
+      next: (s) => this.statistics = s
+    });
   }
 
-  @HostListener('document:click', ['$event'])
-  clickOutside(event: Event) {
-    if (!this.productsDropdown.nativeElement.contains(event.target)) {
-      this.isDropdownOpen = false;
-    }
+  toggleDropdown(event: Event): void {
+    event.preventDefault();
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 }

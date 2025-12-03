@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, shareReplay } from 'rxjs/operators';
 
-export interface CarService {
+export interface LightingService {
   id: string;
   name: string;
   description: string;
@@ -32,10 +32,10 @@ export interface CarService {
   providedIn: 'root'
 })
 export class ServicesService {
-  private dataUrl = 'assets/data/carrio-motors-data.json';
+  private dataUrl = 'assets/data/Chic_Lighting_and_Design.json';
   private servicesData: Observable<any> | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private getData(): Observable<any> {
     if (!this.servicesData) {
@@ -50,18 +50,14 @@ export class ServicesService {
     return this.servicesData;
   }
 
-  // Get all Car services
-  getAllServices(): Observable<CarService[]> {
-    return this.getData().pipe(
-      map(data => data.services)
-    );
+  getAllServices(): Observable<LightingService[]> {
+    return this.getData().pipe(map(data => data.services));
   }
 
-  // Get service by ID
-  getServiceById(serviceId: string): Observable<CarService> {
+  getServiceById(serviceId: string): Observable<LightingService> {
     return this.getData().pipe(
       map(data => {
-        const service = data.services.find((s: CarService) => s.id === serviceId);
+        const service = data.services.find((s: LightingService) => s.id === serviceId);
         if (!service) {
           throw new Error(`Service with ID ${serviceId} not found`);
         }
@@ -74,44 +70,30 @@ export class ServicesService {
     );
   }
 
-  // Get service pricing
   getServicePricing(serviceId: string): Observable<any> {
-    return this.getServiceById(serviceId).pipe(
-      map(service => service.pricing)
-    );
+    return this.getServiceById(serviceId).pipe(map(service => service.pricing));
   }
 
-  // Get service features
   getServiceFeatures(serviceId: string): Observable<string[]> {
-    return this.getServiceById(serviceId).pipe(
-      map(service => service.features)
+    return this.getServiceById(serviceId).pipe(map(service => service.features));
+  }
+
+  // Ví dụ helper theo id trong JSON mới
+  getLightingDesignService(): Observable<LightingService | null> {
+    return this.getData().pipe(
+      map(data => data.services.find((s: LightingService) => s.id === 'lighting-design') || null)
     );
   }
 
-  // Get repair services
-  getRepairServices(): Observable<CarService | null> {
+  getProjectSupplyService(): Observable<LightingService | null> {
     return this.getData().pipe(
-      map(data => {
-        return data.services.find((s: CarService) => s.id === 'repair') || null;
-      })
+      map(data => data.services.find((s: LightingService) => s.id === 'project-supply') || null)
     );
   }
 
-  // Get appraisal services
-  getAppraisalServices(): Observable<CarService | null> {
+  getInstallationMaintenanceService(): Observable<LightingService | null> {
     return this.getData().pipe(
-      map(data => {
-        return data.services.find((s: CarService) => s.id === 'appraisal') || null;
-      })
-    );
-  }
-
-  // Get maintenance services
-  getMaintenanceServices(): Observable<CarService | null> {
-    return this.getData().pipe(
-      map(data => {
-        return data.services.find((s: CarService) => s.id === 'maintenance') || null;
-      })
+      map(data => data.services.find((s: LightingService) => s.id === 'installation-maintenance') || null)
     );
   }
 }

@@ -1,0 +1,699 @@
+{
+  "company": {
+    "name": "Chic Lighting & Design Vietnam",
+    "slogan": "Illuminate Your Spaces Beautifully",
+    "founded": 1971,
+    "description": "Chic Lighting & Design Vietnam is a specialist showroom for decorative and architectural lighting: chandeliers, pendants, wall sconces, lamps, outdoor fixtures and smart lighting solutions. We provide consultation, supply, installation and after-sales service for homes, offices, hotels and showrooms.",
+    "contact": {
+      "email": "info@chiclighting.vn",
+      "phone": "+84 123 456 7890",
+      "address": "Chic Lighting & Design – Hanoi Showroom, Hoan Kiem, Ha Noi, Vietnam"
+    },
+    "socialMedia": {
+      "facebook": "facebook.com/chiclightingvn",
+      "instagram": "instagram.com/chiclightingvn",
+      "twitter": "twitter.com/chiclightingvn",
+      "linkedin": "linkedin.com/company/chic-lighting-vn"
+    },
+    "openingHours": {
+      "weekdays": "9:00 AM - 7:00 PM",
+      "saturday": "10:00 AM - 6:00 PM",
+      "sunday": "10:00 AM - 5:00 PM"
+    }
+  },
+  "statistics": {
+    "yearsInBusiness": 54,
+    "lightServiced": 60000,
+    "brandsAvailable": 5,
+    "satisfiedCustomers": 40000,
+    "visitorsCount": 1256,
+    "LightsSoldWorldwide": 80000
+  },
+  "services": [
+    {
+      "id": "lighting-design",
+      "name": "Lighting Design & Consultation",
+      "description": "Concept-to-completion lighting design for apartments, villas, cafes, showrooms and offices.",
+      "image": "assets/images/services/performance.jpg",
+      "features": [
+        "On-site or online consultation",
+        "Layered lighting concepts (ambient, task, accent)",
+        "Fixture and control recommendations",
+        "Basic layout and zone planning",
+        "Support for renovation and new-build projects",
+        "Coordination with architects and interior designers"
+      ],
+      "pricing": {
+        "basic": {
+          "name": "Concept Package",
+          "price": "200",
+          "description": "Initial consultation and simple concept for 1–2 key spaces."
+        },
+        "standard": {
+          "name": "Design Package",
+          "price": "650",
+          "description": "Full lighting plan for an apartment or small shop with fixture list."
+        },
+        "premium": {
+          "name": "Project Package",
+          "price": "1500",
+          "description": "Comprehensive lighting design and support for villas, showrooms or offices."
+        }
+      }
+    },
+    {
+      "id": "supply-installation",
+      "name": "Supply & Installation",
+      "description": "End-to-end supply and installation of decorative and architectural lighting systems.",
+      "image": "assets/images/services/concierge.jpg",
+      "features": [
+        "Product sourcing and order management",
+        "Delivery and on-site coordination",
+        "Professional installation team",
+        "Chandelier and high-ceiling installs",
+        "Smart switch and dimmer setup",
+        "System testing and handover"
+      ],
+      "pricing": {
+        "basic": {
+          "name": "Standard Install",
+          "price": "150",
+          "description": "Installation of up to 3 standard fixtures in a single room."
+        },
+        "standard": {
+          "name": "Premium Install",
+          "price": "450",
+          "description": "Mixed fixtures and dimmers for an apartment or small shop."
+        },
+        "premium": {
+          "name": "Project Install",
+          "price": "1200",
+          "description": "Full project installation for villas, showrooms or offices."
+        }
+      }
+    },
+    {
+      "id": "maintenance-detailing",
+      "name": "Maintenance & Cleaning",
+      "description": "Regular maintenance, cleaning and LED retrofits to keep fixtures beautiful and efficient.",
+      "image": "assets/images/services/detailing.jpg",
+      "features": [
+        "Chandelier cleaning and re-lamping",
+        "Outdoor fixture inspection and sealing",
+        "LED retrofit for existing fittings",
+        "Checking drivers and dimmers",
+        "Basic repair and component replacement",
+        "Annual maintenance plans for projects"
+      ],
+      "pricing": {
+        "basic": {
+          "name": "Refresh Visit",
+          "price": "120",
+          "description": "Cleaning and lamp replacement for a key room or area."
+        },
+        "standard": {
+          "name": "Home Care",
+          "price": "320",
+          "description": "Scheduled maintenance for an apartment or small house."
+        },
+        "premium": {
+          "name": "Project Care",
+          "price": "950",
+          "description": "Yearly maintenance package for larger homes or commercial projects."
+        }
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "ceiling",
+      "name": "Ceiling Lights",
+      "kind": "segment",
+      "description": "Chandeliers, pendants and flush-mount fixtures for living rooms, dining areas and bedrooms.",
+      "image": "assets/images/categories/luxury.jpg",
+      "features": [
+        "Crystal, glass and metal designs",
+        "Suitable for various ceiling heights",
+        "Modern and classic styles",
+        "LED and smart bulb compatible",
+        "Dimmable options for mood setting"
+      ]
+    },
+    {
+      "id": "lamps",
+      "name": "Lamps",
+      "kind": "segment",
+      "description": "Table, floor and desk lamps for reading, workspaces and cosy corners.",
+      "image": "assets/images/categories/premium.jpg",
+      "features": [
+        "Adjustable arms and shades",
+        "Fabric and metal options",
+        "Perfect for bedside and study desks",
+        "Portable and easy to move",
+        "Works with standard LED bulbs"
+      ]
+    },
+    {
+      "id": "outdoor",
+      "name": "Outdoor Lights",
+      "kind": "segment",
+      "description": "Garden, pathway and façade lighting built to withstand outdoor conditions.",
+      "image": "assets/images/categories/outdoor.jpg",
+      "features": [
+        "IP-rated against rain and dust",
+        "Bollards, spikes and wall lights",
+        "Highlight plants and architecture",
+        "Corrosion-resistant finishes",
+        "Improves safety and ambience"
+      ]
+    },
+    {
+      "id": "homeAccent",
+      "name": "Smart & Accent Lighting",
+      "kind": "segment",
+      "description": "Smart bulbs, LED strips and decorative accents to personalize any space.",
+      "image": "assets/images/categories/homeAccent.jpg",
+      "features": [
+        "App and voice control",
+        "Color-changing and tunable white",
+        "Under-cabinet and cove lighting",
+        "Plug-and-play kits",
+        "Perfect for mood and feature walls"
+      ]
+    }
+  ],
+  "brands": [
+    {
+      "id": "philips",
+      "name": "Philips",
+      "kind": "brand",
+      "description": "Global leader in smart and architectural LED lighting for homes and businesses.",
+      "image": "assets/images/brands/philips.jpg",
+      "features": [
+        "Philips Hue smart ecosystem",
+        "High-efficiency LED modules",
+        "Wide residential and commercial range",
+        "Reliable drivers and components",
+        "Excellent color consistency"
+      ]
+    },
+    {
+      "id": "osram",
+      "name": "OSRAM",
+      "kind": "brand",
+      "description": "Durable outdoor and technical lighting with trusted German engineering.",
+      "image": "assets/images/brands/osram.jpg",
+      "features": [
+        "Rugged outdoor fixtures",
+        "Weather-resistant materials",
+        "Efficient LED engines",
+        "Professional-grade drivers",
+        "Trusted performance worldwide"
+      ]
+    },
+    {
+      "id": "artemide",
+      "name": "Artemide",
+      "kind": "brand",
+      "description": "Iconic Italian design lamps with timeless silhouettes and precise light control.",
+      "image": "assets/images/brands/artemide.jpg",
+      "features": [
+        "Award-winning designs",
+        "Precision task lighting",
+        "Premium aluminium construction",
+        "Creative desk and floor lamps",
+        "Perfect for design-conscious interiors"
+      ]
+    },
+    {
+      "id": "deltalight",
+      "name": "Delta Light",
+      "kind": "brand",
+      "description": "Architectural downlights and track systems for professional lighting projects.",
+      "image": "assets/images/brands/deltalight.jpg",
+      "features": [
+        "Trimless and recessed solutions",
+        "High visual comfort optics",
+        "Modular track systems",
+        "CRI 90+ options",
+        "Ideal for galleries and retail"
+      ]
+    },
+    {
+      "id": "tomdixon",
+      "name": "Tom Dixon",
+      "kind": "brand",
+      "description": "Sculptural statement pendants that double as art pieces in any interior.",
+      "image": "assets/images/brands/tomdixon.jpg",
+      "features": [
+        "Hand-finished metal shades",
+        "Iconic silhouettes",
+        "Warm, focused light",
+        "Ideal for dining and feature areas",
+        "Strong visual presence"
+      ]
+    }
+  ],
+  "products": [
+    {
+      "id": "philips-hue-starter-kit",
+      "name": "Philips Hue Smart Starter Kit",
+      "brandId": "philips",
+      "categoryId": "homeAccent",
+      "price": 220,
+      "discount": 10,
+      "description": "Smart LED starter kit with bridge and color-changing bulbs for full app and voice control.",
+      "features": [
+        "3 color-changing bulbs",
+        "Hue Bridge included",
+        "Works with Alexa, Google and Siri",
+        "16 million colors and tunable white",
+        "Remote control from anywhere"
+      ],
+      "specifications": {
+        "power": "3 × 9W LED",
+        "voltage": "220–240V AC",
+        "colorTemperature": "2000K – 6500K",
+        "lumensPerBulb": "806 lm",
+        "lampCap": "E27"
+      },
+      "images": [
+        "assets/images/products/philips-hue-kit-1.jpg",
+        "assets/images/products/philips-hue-kit-2.jpg",
+        "assets/images/products/philips-hue-kit-3.jpg"
+      ],
+      "inStock": true,
+      "warranty": "2 years"
+    },
+    {
+      "id": "philips-led-panel",
+      "name": "Philips Essential LED Panel",
+      "brandId": "philips",
+      "categoryId": "ceiling",
+      "price": 130,
+      "discount": 10,
+      "description": "Reliable LED panel for commercial and residential ceilings with soft, even illumination.",
+      "features": [
+        "Slim integrated design",
+        "High efficacy LED module",
+        "Flicker-free driver",
+        "Easy recessed installation",
+        "Suited for offices and schools"
+      ],
+      "specifications": {
+        "size": "300 × 1200 mm",
+        "power": "32W LED",
+        "colorTemperature": "4000K",
+        "lumens": "3400 lm",
+        "ipRating": "IP20"
+      },
+      "images": [
+        "assets/images/products/philips-panel-1.jpg",
+        "assets/images/products/philips-panel-2.jpg",
+        "assets/images/products/philips-panel-3.jpg"
+      ],
+      "inStock": true,
+      "warranty": "5 years"
+    },
+    {
+      "id": "artemide-tolomeo-desk-lamp",
+      "name": "Artemide Tolomeo Desk Lamp",
+      "brandId": "artemide",
+      "categoryId": "lamps",
+      "price": 260,
+      "discount": 5,
+      "description": "Iconic adjustable desk lamp with clean lines and precise, glare-free light.",
+      "features": [
+        "Fully adjustable arm and head",
+        "Aluminium construction",
+        "Replaceable LED or halogen bulb",
+        "Ideal for desks and bedside tables",
+        "Timeless Italian design"
+      ],
+      "specifications": {
+        "material": "Aluminium",
+        "power": "Max 12W LED",
+        "voltage": "110–240V",
+        "mounting": "Table base",
+        "switch": "On-cord switch"
+      },
+      "images": [
+        "assets/images/products/artemide-tolomeo-1.jpg",
+        "assets/images/products/artemide-tolomeo-2.jpg",
+        "assets/images/products/artemide-tolomeo-3.jpg"
+      ],
+      "inStock": true,
+      "warranty": "2 years"
+    },
+    {
+      "id": "modern-bollard-outdoor-light",
+      "name": "Modern Garden Bollard Light",
+      "brandId": "osram",
+      "categoryId": "outdoor",
+      "price": 190,
+      "discount": null,
+      "description": "Sleek bollard light for garden paths and driveways with soft, glare-controlled illumination.",
+      "features": [
+        "Die-cast aluminium body",
+        "Weather-resistant coating",
+        "Ground mounting kit included",
+        "Forward-throw optical design",
+        "Perfect for paths and driveways"
+      ],
+      "specifications": {
+        "material": "Aluminium",
+        "power": "10W LED",
+        "voltage": "220–240V",
+        "ipRating": "IP65",
+        "height": "800 mm"
+      },
+      "images": [
+        "assets/images/products/bollard-1.jpg",
+        "assets/images/products/bollard-2.jpg",
+        "assets/images/products/bollard-3.jpg"
+      ],
+      "inStock": true,
+      "warranty": "3 years"
+    },
+    {
+      "id": "osram-garden-spike",
+      "name": "OSRAM Garden Spike Light",
+      "brandId": "osram",
+      "categoryId": "outdoor",
+      "price": 120,
+      "discount": 12,
+      "description": "Durable spike light to highlight plants, trees and façades.",
+      "features": [
+        "Adjustable tilt head",
+        "Corrosion-resistant housing",
+        "Pre-wired outdoor cable",
+        "Focused accent beam",
+        "Ideal for residential gardens"
+      ],
+      "specifications": {
+        "material": "Aluminium and glass",
+        "power": "7W LED",
+        "ipRating": "IP65",
+        "voltage": "220–240V",
+        "spikeLength": "200 mm"
+      },
+      "images": [
+        "assets/images/products/osram-garden-1.jpg",
+        "assets/images/products/osram-garden-2.jpg",
+        "assets/images/products/osram-garden-3.jpg"
+      ],
+      "inStock": true,
+      "warranty": "3 years"
+    },
+    {
+      "id": "oosram-garden-spike-compact",
+      "name": "OSRAM Garden Spike Light – Compact",
+      "brandId": "osram",
+      "categoryId": "outdoor",
+      "price": 115,
+      "discount": 5,
+      "description": "Compact version of the garden spike light for smaller planting beds and façades.",
+      "features": [
+        "Smaller footprint spike",
+        "Wide beam for soft washes",
+        "Durable powder-coated finish",
+        "Ready-to-install outdoor cable",
+        "Great for shrubs and low walls"
+      ],
+      "specifications": {
+        "material": "Aluminium",
+        "power": "6W LED",
+        "ipRating": "IP65",
+        "voltage": "220–240V",
+        "colorTemperature": "3000K"
+      },
+      "images": [
+        "assets/images/products/osram-garden-1.jpg",
+        "assets/images/products/osram-garden-2.jpg",
+        "assets/images/products/osram-garden-3.jpg"
+      ],
+      "inStock": true,
+      "warranty": "3 years"
+    },
+    {
+      "id": "deltalight-reo-downlight",
+      "name": "Delta Light Reo Recessed Downlight",
+      "brandId": "deltalight",
+      "categoryId": "ceiling",
+      "price": 145,
+      "discount": 8,
+      "description": "Minimal recessed downlight with deep-set LED for high visual comfort.",
+      "features": [
+        "Deep recessed LED module",
+        "Trimless installation option",
+        "Narrow to medium beam angles",
+        "CRI 90+ light quality",
+        "Ideal for living rooms and galleries"
+      ],
+      "specifications": {
+        "cutoutDiameter": "90 mm",
+        "power": "8W LED",
+        "colorTemperature": "2700K / 3000K",
+        "beamAngle": "24°",
+        "dimming": "Trailing edge compatible"
+      },
+      "images": [
+        "assets/images/products/deltalight-reo-1.jpg",
+        "assets/images/products/deltalight-reo-2.jpg",
+        "assets/images/products/deltalight-reo-3.jpg"
+      ],
+      "inStock": true,
+      "warranty": "3 years"
+    },
+    {
+      "id": "deltalight-track-spot",
+      "name": "Delta Light Adjustable Track Spotlight",
+      "brandId": "deltalight",
+      "categoryId": "ceiling",
+      "price": 210,
+      "discount": null,
+      "description": "Adjustable LED track spotlight for flexible accent and display lighting.",
+      "features": [
+        "Rotatable and tiltable head",
+        "Three-circuit track compatible",
+        "Interchangeable lenses",
+        "High output LED module",
+        "Perfect for retail and galleries"
+      ],
+      "specifications": {
+        "mounting": "3-circuit track",
+        "power": "15W LED",
+        "colorTemperature": "3000K",
+        "beamAngle": "24° standard",
+        "housingColor": "White / Black"
+      },
+      "images": [
+        "assets/images/products/deltalight-track-1.jpg",
+        "assets/images/products/deltalight-track-2.jpg",
+        "assets/images/products/deltalight-track-3.jpg"
+      ],
+      "inStock": true,
+      "warranty": "3 years"
+    },
+    {
+      "id": "tomdixon-beat-pendant",
+      "name": "Tom Dixon Beat Pendant",
+      "brandId": "tomdixon",
+      "categoryId": "ceiling",
+      "price": 420,
+      "discount": null,
+      "description": "Sculptural spun metal pendant inspired by traditional water vessels and cooking pots.",
+      "features": [
+        "Hand-beaten interior",
+        "Distinctive silhouette",
+        "Ideal as single piece or in cluster",
+        "Warm, focused beam",
+        "Perfect over dining tables and bars"
+      ],
+      "specifications": {
+        "material": "Brass / Steel",
+        "power": "E27 LED bulb",
+        "colorTemperature": "2700K (with warm LED)",
+        "cableLength": "2500 mm",
+        "finish": "Black / Brass interior"
+      },
+      "images": [
+        "assets/images/products/tomdixon-beat-1.jpg",
+        "assets/images/products/tomdixon-beat-2.jpg",
+        "assets/images/products/tomdixon-beat-3.jpg"
+      ],
+      "inStock": true,
+      "warranty": "2 years"
+    },
+    {
+      "id": "tomdixon-melt-pendant",
+      "name": "Tom Dixon Melt Pendant",
+      "brandId": "tomdixon",
+      "categoryId": "ceiling",
+      "price": 620,
+      "discount": null,
+      "description": "Semi-translucent molten-glass effect pendant that creates dramatic reflections and a glowing orb effect.",
+      "features": [
+        "Mirror-finish when off",
+        "Glowing sphere when on",
+        "Statement piece for focal areas",
+        "Compatible with LED lamps",
+        "Ideal in clusters or over islands"
+      ],
+      "specifications": {
+        "diameter": "500 mm",
+        "power": "LED retrofit lamp",
+        "colorTemperature": "2700K",
+        "suspension": "Adjustable up to 2500 mm",
+        "material": "Polycarbonate"
+      },
+      "images": [
+        "assets/images/products/tomdixon-melt-1.jpg",
+        "assets/images/products/tomdixon-melt-2.jpg",
+        "assets/images/products/tomdixon-melt-3.jpg"
+      ],
+      "inStock": true,
+      "warranty": "2 years"
+    }
+  ],
+  "storeLocations": [
+    {
+      "id": "hcm-flagship",
+      "name": "Chic Lighting – Ho Chi Minh City Flagship",
+      "address": "12 Nguyen Hue, District 1, Ho Chi Minh City, Vietnam",
+      "phone": "+84 28 1234 5678",
+      "email": "hcm@chiclighting.vn",
+      "coordinates": {
+        "latitude": 10.779783,
+        "longitude": 106.699653
+      },
+      "openingHours": {
+        "monday": "09:00 - 19:00",
+        "tuesday": "09:00 - 19:00",
+        "wednesday": "09:00 - 19:00",
+        "thursday": "09:00 - 19:00",
+        "friday": "09:00 - 19:00",
+        "saturday": "10:00 - 18:00",
+        "sunday": "10:00 - 17:00"
+      },
+      "services": [
+        "Retail Showroom",
+        "Lighting Design Consultation",
+        "Project Support",
+        "Installation Coordination",
+        "After-Sales Service"
+      ],
+      "image": "assets/images/stores/hcm-flagship.jpg"
+    },
+    {
+      "id": "hn-showroom",
+      "name": "Chic Lighting – Hanoi Showroom",
+      "address": "88 Ly Thuong Kiet, Hoan Kiem, Ha Noi, Vietnam",
+      "phone": "+84 24 1234 5678",
+      "email": "hanoi@chiclighting.vn",
+      "coordinates": {
+        "latitude": 21.027763,
+        "longitude": 105.83416
+      },
+      "openingHours": {
+        "monday": "09:00 - 19:00",
+        "tuesday": "09:00 - 19:00",
+        "wednesday": "09:00 - 19:00",
+        "thursday": "09:00 - 19:00",
+        "friday": "09:00 - 19:00",
+        "saturday": "10:00 - 18:00",
+        "sunday": "10:00 - 17:00"
+      },
+      "services": [
+        "Retail Showroom",
+        "Sample Display",
+        "Lighting Design Consultation",
+        "Project Support"
+      ],
+      "image": "assets/images/stores/hn-showroom.jpg"
+    },
+    {
+      "id": "dn-service",
+      "name": "Chic Lighting – Da Nang Service Center",
+      "address": "25 Vo Nguyen Giap, Son Tra, Da Nang, Vietnam",
+      "phone": "+84 236 123 4567",
+      "email": "danang@chiclighting.vn",
+      "coordinates": {
+        "latitude": 16.054407,
+        "longitude": 108.202167
+      },
+      "openingHours": {
+        "monday": "08:30 - 18:00",
+        "tuesday": "08:30 - 18:00",
+        "wednesday": "08:30 - 18:00",
+        "thursday": "08:30 - 18:00",
+        "friday": "08:30 - 18:00",
+        "saturday": "08:30 - 17:00",
+        "sunday": "Closed"
+      },
+      "services": [
+        "Service & Maintenance",
+        "Warranty Support",
+        "Outdoor Lighting Checks",
+        "Parts & Accessories"
+      ],
+      "image": "assets/images/stores/dn-service.jpg"
+    },
+    {
+      "id": "ct-branch",
+      "name": "Chic Lighting – Can Tho Branch",
+      "address": "5 Hoa Binh Ave, Ninh Kieu, Can Tho, Vietnam",
+      "phone": "+84 292 123 4567",
+      "email": "cantho@chiclighting.vn",
+      "coordinates": {
+        "latitude": 10.045162,
+        "longitude": 105.746857
+      },
+      "openingHours": {
+        "monday": "09:00 - 18:30",
+        "tuesday": "09:00 - 18:30",
+        "wednesday": "09:00 - 18:30",
+        "thursday": "09:00 - 18:30",
+        "friday": "09:00 - 18:30",
+        "saturday": "09:00 - 17:30",
+        "sunday": "10:00 - 16:00"
+      },
+      "services": [
+        "Retail Showroom",
+        "Lighting Design Consultation",
+        "Service & Maintenance"
+      ],
+      "image": "assets/images/stores/ct-branch.jpg"
+    }
+  ],
+  "teamMembers": [
+    {
+      "id": "ceo-01",
+      "name": "John Carter",
+      "title": "Chief Executive Officer",
+      "image": "/assets/images/team/john.jpg",
+      "quote": "Leading Chic Lighting Vietnam to brighten every home and showroom."
+    },
+    {
+      "id": "sales-01",
+      "name": "Emily Nguyen",
+      "title": "Showroom & Sales Manager",
+      "image": "/assets/images/team/emily-nguyen.png",
+      "quote": "Helping customers find the perfect lighting for their lifestyle and budget."
+    },
+    {
+      "id": "service-01",
+      "name": "David Tran",
+      "title": "Head of Service & Installation",
+      "image": "/assets/images/team/david-tran.png",
+      "quote": "From delivery to installation, we ensure every fixture performs beautifully."
+    },
+    {
+      "id": "finance-01",
+      "name": "Sophia Le",
+      "title": "Projects & Purchasing Coordinator",
+      "image": "/assets/images/team/sophia-le.png",
+      "quote": "Coordinating stock and project orders so designs become reality on time."
+    }
+  ]
+}

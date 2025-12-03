@@ -105,7 +105,7 @@ p {
 }
 
 img {
-  width: 100%;
+  width: 80%;
   overflow: hidden;
 }
 
@@ -695,6 +695,7 @@ Header Style
   }
   .header-area .logo {
     margin-left: 0px;
+    max-height: 100px;
   }
   .header-area .menu-trigger {
     display: block !important;
@@ -958,7 +959,7 @@ Video Style
 */
 
 .video {
-  background-image: url(../images/video-bg.jpg);
+  background-image: url(../images/video-bg.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -982,6 +983,7 @@ Video Style
 
 .video-content .video-frame img {
   border-radius: 10px;
+  width: 100%;
 }
 
 .video-content .video-frame a {
@@ -1825,3 +1827,21 @@ body {
     margin-right: 100px;
   }
 }
+
+@media (min-width: 768px) {
+  .category-img {
+  width: 100%;
+  height: 450px; 
+  object-fit: cover;   
+  border-radius: 12px;
+} 
+}
+
+@media (max-width: 768px) {
+  .category-img {
+  width: 100%;
+  height: 300px; 
+  object-fit: cover;   
+  border-radius: 12px;
+  
+}}

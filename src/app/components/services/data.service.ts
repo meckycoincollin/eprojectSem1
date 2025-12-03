@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError, forkJoin } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { map, catchError, shareReplay } from 'rxjs/operators';
-import { Category, Car, Brand } from './cars.service';
+import { Category, Product, Brand } from './products.service';
 import { Company, Statistics } from './company.service';
-import { CarService } from './service.service';
+import { LightingService } from './service.service';  
 import { TeamMember } from './teammember.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private dataUrl = 'assets/data/carrio-motors-data.json';
+  private dataUrl = 'assets/data/Chic_Lighting_and_Design.json';
   private allData: Observable<any> | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private getData(): Observable<any> {
     if (!this.allData) {
@@ -49,18 +49,18 @@ export class DataService {
   }
 
   getHomePageData(): Observable<{
-    featuredCars: Car[],
-    categories: Category[],
-    company: Company,
-    statistics: Statistics,
-    teamMembers: TeamMember[]
-  } > {
+    featuredProducts: Product[];
+    categories: Category[];
+    company: Company;
+    statistics: Statistics;
+    teamMembers: TeamMember[];
+  }> {
     return this.getData().pipe(
       map(data => {
-        const featuredCars = data.products.slice(0, 6);
-        
+        const featuredProducts = data.products.slice(0, 6);
+
         return {
-          featuredCars,
+          featuredProducts,
           categories: data.categories,
           company: data.company,
           statistics: data.statistics,
@@ -69,42 +69,45 @@ export class DataService {
       })
     );
   }
-  
+
   getProductListPageData(): Observable<{
-    products: Car[],
-    categories: Category[],
-    brands: Brand[]
+    products: Product[];
+    categories: Category[];
+    brands: Brand[];
   }> {
     return this.getData().pipe(
-      map(data => {
-        return {
-          products: data.products,
-          categories: data.categories,
-          brands: data.brands
-        };
-      })
+      map(data => ({
+        products: data.products,
+        categories: data.categories,
+        brands: data.brands
+      }))
     );
   }
-  
+
   getProductDetailPageData(productId: string): Observable<{
-    product: Car,
-    relatedProducts: Car[],
-    category: Category
+    product: Product;
+    relatedProducts: Product[];
+    category: Category;
   }> {
     return this.getData().pipe(
       map(data => {
-        const product = data.products.find((p: Car) => p.id === productId);
-        
+        const product = data.products.find((p: Product) => p.id === productId);
+
         if (!product) {
           throw new Error(`Product with ID ${productId} not found`);
         }
-        
-        const category = data.categories.find((c: Category) => c.id === product.categoryId);
-        
+
+        const category = data.categories.find(
+          (c: Category) => c.id === product.categoryId
+        );
+
         const relatedProducts = data.products
-          .filter((p: Car) => p.categoryId === product.categoryId && p.id !== productId)
+          .filter(
+            (p: Product) =>
+              p.categoryId === product.categoryId && p.id !== productId
+          )
           .slice(0, 4);
-          
+
         return {
           product,
           category,
@@ -117,27 +120,26 @@ export class DataService {
       })
     );
   }
-  
+
   getSupportPageData(): Observable<{
-    services: CarService[]
+    services: LightingService[];
   }> {
     return this.getData().pipe(
-      map(data => {
-        return {
-          faqs: data.faqs,
-          services: data.services
-        };
-      })
+      map(data => ({
+        services: data.services     
+      }))
     );
   }
-  
+
   getStoreLocatorPageData(): Observable<any> {
-    return this.http.get(this.dataUrl);
+    return this.getData();
   }
+
   getGalleryData(): Observable<any> {
-    return this.http.get<any>(this.dataUrl);
+    return this.getData();
   }
+
   getContactPageData(): Observable<any> {
-    return this.http.get<any>(this.dataUrl);
+    return this.getData();
   }
 }

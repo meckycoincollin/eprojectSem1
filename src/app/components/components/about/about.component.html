@@ -3,188 +3,241 @@
     <div class="row">
       <div class="col-lg-12 mt-5">
         <h3>ABOUT US</h3>
-        <span class="breadcrumb"><a [routerLink]="['/']">Home</a> / <b class="text-danger ">About Us</b> </span>
+        <span class="breadcrumb">
+          <a [routerLink]="['/']">Home</a> /
+          <b class="text-danger">About Us</b>
+        </span>
       </div>
     </div>
   </div>
 </div>
 
-
 <div class="loading-container" *ngIf="loading">
-    <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-    <p>Loading information...</p>
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <p>Loading information...</p>
 </div>
 
 <div class="alert alert-danger" *ngIf="error">
-    {{ error }}
+  {{ error }}
 </div>
 
 <div class="about-box-main" *ngIf="!loading && !error">
-    <div class="container">
-        <div class="row">
+  <div class="container">
+    <div class="row">
 
-
-            <div class="col-lg-6">
-                <h3>My Show Room</h3>
-                <div id="showroomCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000"
-                    data-bs-wrap="true">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="assets/images/carrioshowroom.jpg" class="d-block w-100 img-fluid"
-                                alt="Showroom 1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="assets/images/carrioshowroom-1.jpg" class="d-block w-100 img-fluid"
-                                alt="Showroom 2">
-                        </div>
-                        <!-- <div class="carousel-item">
-                            <img src="assets/images/carrioshowroom-2.jpg" class="d-block w-100 img-fluid"
-                                alt="Showroom 3">
-                        </div> -->
-                        <div class="carousel-item">
-                            <img src="assets/images/carrioshowroom-3.jpg" class="d-block w-100 img-fluid"
-                                alt="Showroom 4">
-                        </div>
-
-                    </div>
-                    <!-- Nút điều hướng -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#showroomCarousel"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#showroomCarousel"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
-
-
-                </div>
+      <!-- Showroom Carousel -->
+      <div class="col-lg-6">
+        <h3>Our Lighting Showroom</h3>
+        <div id="showroomCarousel"
+             class="carousel slide"
+             data-bs-ride="carousel"
+             data-bs-interval="2000"
+             data-bs-wrap="true">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="assets/images/showroom1.jpg"
+                   class="d-block w-100 img-fluid"
+                   alt="Showroom 1">
             </div>
-
-            <div class="col-lg-6">
-                <h2 class="noo-sh-title-top">Welcome to <span>{{ companyInfo?.name || 'Carriomotors' }}</span></h2>
-                <p>{{ companyInfo?.description || 'Carriomotors is a premium automotive service and retail company,
-                    offering a wide range of luxury vehicles and top-notch maintenance services. Founded with a passion
-                    for excellence in automotive engineering, we provide the finest selection with exceptional customer
-                    care.' }}</p>
-                <p>Since our founding in {{ companyInfo?.founded || '2005' }}, we have built a reputation for excellence
-                    in both our products and services. Our team of certified automotive experts and technicians are
-                    dedicated to delivering the best experience to every customer.</p>
-                <p>We also offer a wide selection of brand new vehicles, including BMW, Mercedes-Benz, Audi, Toyota, and
-                    more!</p>
-                <a class="btn hvr-hover" [routerLink]="['/products']">Explore Our Collection</a>
+            <div class="carousel-item">
+              <img src="assets/images/showroom2.jpg"
+                   class="d-block w-100 img-fluid"
+                   alt="Showroom 2">
             </div>
+            <div class="carousel-item">
+              <img src="assets/images/showroom3.jpg"
+                   class="d-block w-100 img-fluid"
+                   alt="Showroom 3">
+            </div>
+          </div>
+
+          <button class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#showroomCarousel"
+                  data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#showroomCarousel"
+                  data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
         </div>
+      </div>
 
-        <div class="row my-5">
-            <div class="col-sm-6 col-lg-4">
-                <div class="service-block-inner">
-                    <h3>Certified Expertise</h3>
-                    <p>Our automotive specialists are certified and have decades of combined experience in luxury and
-                        high-performance vehicles. We handle every car with precision, ensuring your investment is in
-                        safe hands.</p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-                <div class="service-block-inner">
-                    <h3>Exceptional Service</h3>
-                    <p>We provide personalized attention to each customer. From helping you select the perfect car to
-                        educating you about maintenance and features, we ensure full satisfaction.</p>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-                <div class="service-block-inner">
-                    <h3>Luxury Collection</h3>
-                    <p>Our curated collection features top vehicles from the world's most prestigious brands. Whether
-                        you want a classic luxury car or the latest electric vehicle, we offer only the best quality.
-                    </p>
-                </div>
-            </div>
-        </div>
+      <!-- Company Info -->
+      <div class="col-lg-6">
+        <h2 class="noo-sh-title-top">
+          Welcome to
+          <span>{{ companyInfo?.name || 'Chic Lighting & Design' }}</span>
+        </h2>
 
-        <div class="row my-5" *ngIf="statistics">
-            <div class="col-12">
-                <h2 class="noo-sh-title">Our Achievements</h2>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="stat-box">
-                    <div class="stat-number">{{ statistics.yearsInBusiness }}</div>
-                    <div class="stat-title">Years in Business</div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="stat-box">
-                    <div class="stat-number">{{ statistics.vehiclesServiced }}</div>
-                    <div class="stat-title">Vehicles Serviced</div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="stat-box">
-                    <div class="stat-number">{{ statistics.brandsAvailable }}</div>
-                    <div class="stat-title">Brands Available</div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="stat-box">
-                    <div class="stat-number">{{ statistics.satisfiedCustomers }}</div>
-                    <div class="stat-title">Satisfied Customers</div>
-                </div>
-            </div>
-        </div>
+        <p>
+          {{ companyInfo?.description ||
+          'Chic Lighting & Design specializes in premium LED lights, lamps, chandeliers and modern lighting solutions for homes, offices and commercial spaces.' }}
+        </p>
 
-        <!-- Team Section -->
-        <div class="row my-4">
-            <div class="col-12">
-                <h2 class="noo-sh-title">Meet Our Team</h2>
-            </div>
-            <div class="col-sm-6 col-lg-3" *ngFor="let member of teamMembers">
-                <div class="hover-team">
-                    <div class="our-team">
-                        <img [src]="member.image || '/assets/images/default-avatar.jpg'" [alt]="member.name"
-                            style="max-height: 300px;">
-                        <div class="team-content">
-                            <h3 class="title" style="color: red;">{{ member.name }}</h3>
-                            <span class="post">{{ member.title }}</span>
-                        </div>
+        <p>
+          Since {{ companyInfo?.founded || '1971' }}, we have helped thousands of customers transform their interiors with elegant, efficient and inspiring lighting. From minimalist ceiling fixtures to statement chandeliers, our team provides expert guidance tailored to every style.
+        </p>
 
-                    </div>
-                    <div class="team-description">
-                        <p>{{ member.quote }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p>
+          We partner with top international and local lighting brands to bring you high-quality products including LED spotlights, pendant lights, outdoor lighting, smart lighting systems and more.
+        </p>
 
-        <!-- Store Information -->
-        <div class="row my-5">
-            <div class="col-12">
-                <h2 class="noo-sh-title">Visit Our Store</h2>
-            </div>
-            <div class="col-md-6">
-                <div class="store-info">
-                    <h4>Main Showroom</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> {{ companyInfo?.contact?.address || '456 Carriomotors
-                        Avenue, Luxury District, Hanoi, Vietnam' }}</p>
-                    <p><i class="fas fa-phone"></i> {{ companyInfo?.contact?.phone || '+84 987 654 321' }}</p>
-                    <p><i class="fas fa-envelope"></i> info@carriomotors.com</p>
-
-                    <h5>Opening Hours</h5>
-                    <p><i class="fas fa-clock"></i> Weekdays: {{ companyInfo?.openingHours?.weekdays || '9:00 AM - 8:00
-                        PM' }}</p>
-                    <p><i class="fas fa-clock"></i> Saturday: {{ companyInfo?.openingHours?.saturday || '10:00 AM - 6:00
-                        PM' }}</p>
-                    <p><i class="fas fa-clock"></i> Sunday: {{ companyInfo?.openingHours?.sunday || 'Closed' }}</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="map-container">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.1155335517404!2d105.84115007599775!3d21.02754148052354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9b4a79fa85%3A0xd4c01582479b0553!2sHoan%20Kiem%20Lake!5e0!3m2!1sen!2s!4v1684210063387!5m2!1sen!2s"
-                        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
+        <a class="btn hvr-hover" [routerLink]="['/products']">
+          Explore Our Lighting Collection
+        </a>
+      </div>
     </div>
+
+    <!-- Services Section -->
+    <div class="row my-5">
+      <div class="col-sm-6 col-lg-4">
+        <div class="service-block-inner">
+          <h3>Lighting Consultation</h3>
+          <p>
+            Our lighting experts help you choose the perfect fixtures, brightness levels and layout to create beautiful and energy-efficient spaces.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <div class="service-block-inner">
+          <h3>Professional Installation</h3>
+          <p>
+            From chandeliers to recessed lighting, our team ensures safe, clean and professional installation for every project.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <div class="service-block-inner">
+          <h3>High-Quality LED Products</h3>
+          <p>
+            We provide a curated selection of durable, energy-saving and stylish lighting products from trusted global manufacturers.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="row my-5" *ngIf="statistics">
+      <div class="col-12">
+        <h2 class="noo-sh-title">Our Achievements</h2>
+      </div>
+
+      <div class="col-sm-6 col-lg-3">
+        <div class="stat-box">
+          <div class="stat-number">{{ statistics.yearsInBusiness }}</div>
+          <div class="stat-title">Years in Lighting</div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-3">
+        <div class="stat-box">
+          <div class="stat-number">{{ statistics.LightsSoldWorldwide }}</div>
+          <div class="stat-title">Lights Sold Worldwide</div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-3">
+        <div class="stat-box">
+          <div class="stat-number">{{ statistics.brandsAvailable }}</div>
+          <div class="stat-title">Brands Available</div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-3">
+        <div class="stat-box">
+          <div class="stat-number">{{ statistics.satisfiedCustomers }}</div>
+          <div class="stat-title">Happy Customers</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="row my-4">
+      <div class="col-12">
+        <h2 class="noo-sh-title">Meet Our Team</h2>
+      </div>
+
+      <div class="col-sm-6 col-lg-3" *ngFor="let member of teamMembers">
+        <div class="hover-team">
+          <div class="our-team">
+            <img
+              [src]="member.image || 'assets/images/default-avatar.jpg'"
+              [alt]="member.name"
+              style="height: 300px;">
+            <div class="team-content">
+              <h3 class="title" style="color: red;">{{ member.name }}</h3>
+              <span class="post">{{ member.title }}</span>
+            </div>
+          </div>
+          <div class="team-description">
+            <p>{{ member.quote }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Store Information -->
+    <div class="row my-5">
+      <div class="col-12">
+        <h2 class="noo-sh-title">Visit Our Store</h2>
+      </div>
+
+      <div class="col-md-6">
+        <div class="store-info">
+          <h4>Main Showroom</h4>
+          <p>
+            <i class="fas fa-map-marker-alt"></i>
+            {{ companyInfo?.contact?.address || 'Hoan Kiem District, Hanoi, Vietnam' }}
+          </p>
+          <p>
+            <i class="fas fa-phone"></i>
+            {{ companyInfo?.contact?.phone || '+84 123 456 7890' }}
+          </p>
+          <p>
+            <i class="fas fa-envelope"></i>
+            {{ companyInfo?.contact?.email || 'info@chiclightingdesign.com' }}
+          </p>
+
+          <h5>Opening Hours</h5>
+          <p>
+            <i class="fas fa-clock"></i>
+            Weekdays:
+            {{ companyInfo?.openingHours?.weekdays || '9:00 AM - 7:00 PM' }}
+          </p>
+          <p>
+            <i class="fas fa-clock"></i>
+            Saturday:
+            {{ companyInfo?.openingHours?.saturday || '10:00 AM - 6:00 PM' }}
+          </p>
+          <p>
+            <i class="fas fa-clock"></i>
+            Sunday:
+            {{ companyInfo?.openingHours?.sunday || 'Closed' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.1155335517404!2d105.84115007599775!3d21.02754148052354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9b4a79fa85%3A0xd4c01582479b0553!2sHoan%20Kiem%20Lake!5e0!3m2!1sen!2s!4v1684210063387!5m2!1sen!2s"
+            width="100%"
+            height="300"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>

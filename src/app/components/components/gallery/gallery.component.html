@@ -1,125 +1,54 @@
-<style>
-.brand-filter {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.brand-filter li {
-  margin: 5px;
-}
-
-.brand-filter li a {
-  display: inline-block;
-  padding: 8px 20px;
-  border-radius: 5px;
-  background-color: #212529;
-  color: #fff;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-
-.brand-filter li a:hover {
-  background-color: #f35525;
-}
-
-.brand-filter li a.active {
-  background-color: #f35525;
-  color: #fff;
-}
-
-.pagination {
-  display: flex;
-  list-style: none;
-  padding-left: 0;
-  gap: 8px;
-}
-
-.pagination li a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: #212529;
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.pagination li a:hover {
-  background-color: #f35525;
-  color: #fff;
-}
-
-.pagination li a.active {
-  background-color: #f35525;
-  color: #fff;
-  font-weight: bold;
-}
-.image-wrapper {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 8px;   /* bo góc cho đẹp */
-  cursor: pointer;
-}
-
-.image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;    /* ảnh lấp đầy, không méo */
-  display: block;
-}
-
-  
-</style>
 <div class="page-heading header-text">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 mt-5">
-        <h3>OUR CARRIO CAR COLLECTIONS</h3>
-        <span class="breadcrumb"><a [routerLink]="['/']">Home</a> / <b class="text-danger ">Gallery</b> </span>
+        <h3>OUR LIGHTING COLLECTION GALLERY</h3>
+        <span class="breadcrumb">
+          <a [routerLink]="['/']">Home</a> /
+          <b class="text-danger">Gallery</b>
+        </span>
       </div>
     </div>
   </div>
 </div>
 
 <div class="container mt-4">
-  <!-- Bộ lọc hãng -->
+
+  <!-- Brand filter -->
   <ul class="brand-filter">
     <li>
       <a href="javascript:void(0)"
          [class.active]="selectedBrand === 'all'"
-         (click)="filterProducts('all')">All Brands</a>
+         (click)="filterProducts('all')">
+        All Brands
+      </a>
     </li>
     <li *ngFor="let brand of brands">
       <a href="javascript:void(0)"
-         [class.active]="selectedBrand === brand"
-         (click)="filterProducts(brand)">
-        {{ brand }}
+         [class.active]="selectedBrand === brand.id"
+         (click)="filterProducts(brand.id)">
+        {{ brand.name }}
       </a>
     </li>
   </ul>
 
-  <!-- Danh sách xe -->
- <div class="row mt-4">
-  <div class="col-md-3 mb-4" *ngFor="let car of pagedCars; let i = index">
-    <div class="image-wrapper" (click)="openLightbox(i)">
-      <img [src]="car.images[0]"
-           [alt]="car.name"
-           class="img-fluid">
+  <!-- Gallery grid -->
+  <div class="row mt-4">
+    <div class="col-md-3 mb-4" *ngFor="let item of pagedItems; let i = index">
+      <div class="image-wrapper" (click)="openLightbox(i)">
+        <img
+          [src]="item.images && item.images[0] ? item.images[0] : 'assets/images/default-light.jpg'"
+          [alt]="item.name"
+          class="img-fluid">
+      </div>
+      <div class="mt-2 text-center">
+        <h6 class="mb-0">{{ item.name }}</h6>
+        <small class="text-muted">{{ getBrandName(item.brandId) }}</small>
+      </div>
     </div>
   </div>
-</div>
 
-  <!-- Phân trang -->
+  <!-- Pagination -->
   <div class="row" *ngIf="totalPages > 1">
     <div class="col-lg-12 d-flex justify-content-center">
       <ul class="pagination">
@@ -142,5 +71,3 @@
     </div>
   </div>
 </div>
-
-

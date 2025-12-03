@@ -1,153 +1,214 @@
+<div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="productDetailModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="productDetailModalLabel">{{ product?.name }}</h4>
+        <button type="button" class="close" (click)="hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
-<div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="productDetailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="productDetailModalLabel">{{ car?.name }}</h4>
-          <button type="button" class="close" (click)="hide()" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body" *ngIf="car && !loading">
-          <div class="row">
-            <div class="col-lg-7">
-              <div class="main-image">
-                <img [src]="car.images[activeImageIndex]" [alt]="car.name" 
-                    style="width: 100%; height: 400px; object-fit: contain;">
-              </div>
-              <div class="modal-product-gallery mt-3" *ngIf="car.images.length > 1">
-                <div class="row">
-                  <div class="col-3" *ngFor="let image of car.images; let i = index">
-                    <div class="gallery-item" [class.active]="i === activeImageIndex" (click)="changeImage(i)"
-                         style="width: 100%; height: 120px; overflow: hidden; cursor: pointer;">
-                      <img [src]="image" [alt]="car.name + ' image ' + (i+1)"
-                           style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
+      <!-- BODY: loaded -->
+      <div class="modal-body" *ngIf="product && !loading">
+        <div class="row">
+          <!-- LEFT: gallery -->
+          <div class="col-lg-7">
+            <div class="main-image">
+              <img [src]="product.images[activeImageIndex]" [alt]="product.name"
+                style="width: 100%; height: 400px; object-fit: contain;">
+            </div>
+            <div class="modal-product-gallery mt-3" *ngIf="product.images.length > 1">
+              <div class="row">
+                <div class="col-3" *ngFor="let image of product.images; let i = index">
+                  <div class="gallery-item" [class.active]="i === activeImageIndex" (click)="changeImage(i)"
+                    style="width: 100%; height: 120px; overflow: hidden; cursor: pointer;">
+                    <img [src]="image" [alt]="product.name + ' image ' + (i+1)"
+                      style="width: 100%; height: 100%; object-fit: cover;">
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-5">
-              <div class="product-details">
-                <span class="category text-danger" style="font-weight: bolder;" >{{ category?.name }}</span>
-                <h4>{{ car.name }}</h4>
-                <div class="price-section mb-4">
-                  <h5 class="price" *ngIf="!car.discount">
-                    {{ car.price | currency:'USD':'symbol':'1.0-0' }}
-                  </h5>
-                  <h5 class="price" *ngIf="car.discount">
-                    <span class="original-price">{{ car.price | currency:'USD':'symbol':'1.0-0' }}</span>
-                    <span class="discounted-price">{{ getDiscountedPrice(car.price, car.discount) | currency:'USD':'symbol':'1.0-0' }}</span>
-                    <span class="discount-badge">{{ car.discount }}% OFF</span>
-                  </h5>
-                </div>
-                
-                <div class="specifications">
-                  <h5>Specifications</h5>
-                  <ul class="specs-list">
-                    <li *ngIf="car.specifications.movement">
-                      <strong>Movement:</strong> {{ car.specifications.movement }}
-                    </li>
-                    <li *ngIf="car.specifications.caseSize">
-                      <strong>Case Size:</strong> {{ car.specifications.caseSize }}
-                    </li>
-                    <li *ngIf="car.specifications.waterResistance">
-                      <strong>Water Resistance:</strong> {{ car.specifications.waterResistance }}
-                    </li>
-                    <li *ngIf="car.specifications.material">
-                      <strong>Material:</strong> {{ car.specifications.material }}
-                    </li>
-                    <li>
-                      <strong>Warranty:</strong> {{ car.warranty }}
-                    </li>
-                    <li>
-                      <strong>Availability:</strong> 
-                      <span [class.text-success]="car.inStock" [class.text-danger]="!car.inStock">
-                        {{ car.inStock ? 'In Stock' : 'Out of Stock' }}
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                
-                <div class="description mt-4">
-                  <h5>Description</h5>
-                  <div [innerHTML]="getSanitizedDescription()"></div>
-                </div>
-                 <div class="description mt-4">
-                  <h5>Adrress</h5>
-                  <div >Address:  Carrio Motors - Hanoi ShowRoom - Hoan Kiem Lake, Ha Noi, Vietnam</div>
-                  <button class="btn btn-danger mt-2"  (click)="goToContact()">
-                    Contact Us
-                  </button>
-                </div>       
-              </div>
-            </div>
           </div>
-          <div class="product-tabs mt-4">
-            <ul class="nav nav-tabs" id="productTabs" role="tablist">
-              <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="features-tab" data-bs-toggle="tab" href="#features" role="tab">Features</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" id="warranty-tab" data-bs-toggle="tab" href="#warranty" role="tab">Warranty & Care</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link" id="shipping-tab" data-bs-toggle="tab" href="#shipping" role="tab">Shipping & Returns</a>
-              </li>
-            </ul>
-            <div class="tab-content" id="productTabsContent">
-              <div class="tab-pane fade show active" id="features" role="tabpanel">
-                <ul class="features-list">
-                  <li *ngFor="let feature of car.features">{{ feature }}</li>
+
+          <!-- RIGHT: info -->
+          <div class="col-lg-5">
+            <div class="product-details">
+              <span class="category text-danger" style="font-weight: bolder;">
+                {{ category?.name }}
+              </span>
+              <h4>{{ product.name }}</h4>
+
+              <!-- PRICE -->
+              <div class="price-section mb-4">
+                <h5 class="price" *ngIf="!product.discount">
+                  {{ product.price | currency:'USD':'symbol':'1.0-0' }}
+                </h5>
+                <h5 class="price" *ngIf="product.discount">
+                  <span class="original-price">
+                    {{ product.price | currency:'USD':'symbol':'1.0-0' }}
+                  </span>
+                  <span class="discounted-price">
+                    {{ getDiscountedPrice(product.price, product.discount) | currency:'USD':'symbol':'1.0-0' }}
+                  </span>
+                  <span class="discount-badge">{{ product.discount }}% OFF</span>
+                </h5>
+              </div>
+
+              <!-- SPECS -->
+              <div class="specifications">
+                <h5>Specifications</h5>
+                <ul class="specs-list">
+                  <li *ngIf="product.specifications?.engine">
+                    <strong>Light Source:</strong> {{ product.specifications.engine }}
+                  </li>
+                  <li *ngIf="product.specifications?.power">
+                    <strong>Power / Output:</strong> {{ product.specifications.power }}
+                  </li>
+                  <li *ngIf="product.specifications?.drivetrain">
+                    <strong>Application:</strong> {{ product.specifications.drivetrain }}
+                  </li>
+                  <li *ngIf="product.specifications?.transmission">
+                    <strong>Control / Mode:</strong> {{ product.specifications.transmission }}
+                  </li>
+                  <li *ngIf="product.specifications?.topSpeed">
+                    <strong>Performance:</strong> {{ product.specifications.topSpeed }}
+                  </li>
+                  <li *ngIf="product.specifications?.zeroToHundred">
+                    <strong>Highlights:</strong> {{ product.specifications.zeroToHundred }}
+                  </li>
+                  <li>
+                    <strong>Warranty:</strong> {{ product.warranty }}
+                  </li>
+                  <li>
+                    <strong>Availability:</strong>
+                    <span [class.text-success]="product.inStock" [class.text-danger]="!product.inStock">
+                      {{ product.inStock ? 'In Stock' : 'Out of Stock' }}
+                    </span>
+                  </li>
                 </ul>
               </div>
-              <div class="tab-pane fade" id="warranty" role="tabpanel">
-                <p><strong>Warranty:</strong> {{ car.warranty }}</p>
-                <p><strong>Care Instructions:</strong> While our cares are designed for durability, we recommend regular maintenance to ensure longevity. Avoid exposure to extreme temperatures, chemicals, and magnetic fields. For mechanical cares, have them serviced every 3-5 years.</p>
+
+              <!-- DESCRIPTION -->
+              <div class="description mt-4">
+                <h5>Description</h5>
+                <div [innerHTML]="getSanitizedDescription()"></div>
               </div>
-              <div class="tab-pane fade" id="shipping" role="tabpanel">
-                <p><strong>Shipping:</strong> Free shipping worldwide on all orders over $500. Standard shipping takes 3-5 business days for domestic orders and 7-14 days for international orders.</p>
-                <p><strong>Returns:</strong> We offer a 30-day return policy on all unworn cares in their original condition with all packaging and documentation.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="related-cars mt-5" *ngIf="relatedCars && relatedCars.length > 0">
-            <h4 class="mb-4">You May Also Like</h4>
-            <div class="row">
-              <div class="col-lg-3 col-md-6 mb-4" *ngFor="let relatedcar of relatedCars.slice(0, 4)">
-                <div class="related-car-item" (click)="viewRelated(relatedcar)" style="cursor: pointer;">
-                  <div style="width: 100%; height: 200px; overflow: hidden; margin-bottom: 15px;">
-                    <img [src]="relatedcar.images[0]" [alt]="relatedcar.name" 
-                        style="width: 100%; height: 100%; object-fit: contain;">
-                  </div>
-                  <span class="category">{{ relatedcar.brand }}</span>
-                  <h5 *ngIf="!relatedcar.discount">{{ relatedcar.price | currency:'USD':'symbol':'1.0-0' }}</h5>
-                  <h5 *ngIf="relatedcar.discount">
-                    <span class="original-price">{{ relatedcar.price | currency:'USD':'symbol':'1.0-0' }}</span>
-                    <span class="discounted-price">{{ getDiscountedPrice(relatedcar.price, relatedcar.discount) | currency:'USD':'symbol':'1.0-0' }}</span>
-                  </h5>
-                  <h4>{{ relatedcar.name }}</h4>
+
+              <!-- ADDRESS & CONTACT -->
+              <div class="description mt-4">
+                <h5>Address</h5>
+                <div>
+                  Chic Lighting &amp; Design – Hanoi Showroom, Hoan Kiem Lake, Ha Noi, Vietnam
                 </div>
+                <button class="btn btn-danger mt-2" (click)="goToContact()">
+                  Contact Us
+                </button>
               </div>
             </div>
           </div>
         </div>
-        
-        <div class="modal-body d-flex justify-content-center align-items-center" *ngIf="loading" style="min-height: 400px;">
-          <div class="text-center">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
+
+        <!-- TABS -->
+        <div class="product-tabs mt-4">
+          <ul class="nav nav-tabs" id="productTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="features-tab" data-bs-toggle="tab" href="#features" role="tab">
+                Features
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="warranty-tab" data-bs-toggle="tab" href="#warranty" role="tab">
+                Warranty &amp; Care
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="shipping-tab" data-bs-toggle="tab" href="#shipping" role="tab">
+                Shipping &amp; Returns
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content" id="productTabsContent">
+            <div class="tab-pane fade show active" id="features" role="tabpanel">
+              <ul class="features-list">
+                <li *ngFor="let feature of product.features">{{ feature }}</li>
+              </ul>
             </div>
-            <p class="mt-2">Loading car details...</p>
+            <div class="tab-pane fade" id="warranty" role="tabpanel">
+              <p><strong>Warranty:</strong> {{ product.warranty }}</p>
+              <p><strong>Care Instructions:</strong> Our lighting fixtures are designed for durability.
+                Avoid direct impact, extreme humidity, and corrosive environments. Clean gently with a
+                soft dry cloth and follow electrical safety guidelines during installation.</p>
+            </div>
+            <div class="tab-pane fade" id="shipping" role="tabpanel">
+              <p><strong>Shipping:</strong> Free shipping nationwide on qualifying orders. Standard
+                delivery: 3–5 business days within Vietnam.</p>
+              <p><strong>Returns:</strong> 30-day return policy for unused products in original packaging
+                with invoice and accessories.</p>
+            </div>
           </div>
         </div>
-        
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="hide()">Close</button>
+
+        <!-- DOWNLOADS -->
+        <div class="downloads mt-4">
+          <h5>Downloads</h5>
+          <button class="btn btn-outline-primary btn-sm me-2" (click)="downloadProductPdf()">
+            Download Product Datasheet (PDF)
+          </button>
+
+          <!-- nút DOC cũ vẫn giữ -->
+          <button class="btn btn-outline-secondary btn-sm" (click)="downloadProductDoc()">
+            Download Product Datasheet (DOC)
+          </button>
         </div>
+
+
+
+        <!-- RELATED PRODUCTS -->
+        <div class="related-cars mt-5" *ngIf="relatedProducts && relatedProducts.length > 0">
+          <h4 class="mb-4">You May Also Like</h4>
+          <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4" *ngFor="let related of relatedProducts.slice(0, 4)">
+              <div class="related-car-item" (click)="viewRelated(related)" style="cursor: pointer;">
+                <div style="width: 100%; height: 200px; overflow: hidden; margin-bottom: 15px;">
+                  <img [src]="related.images[0]" [alt]="related.name"
+                    style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <span class="category">
+                  {{ related.categoryId | titlecase }}
+                </span>
+                <h5 *ngIf="!related.discount">
+                  {{ related.price | currency:'USD':'symbol':'1.0-0' }}
+                </h5>
+                <h5 *ngIf="related.discount">
+                  <span class="original-price">
+                    {{ related.price | currency:'USD':'symbol':'1.0-0' }}
+                  </span>
+                  <span class="discounted-price">
+                    {{ getDiscountedPrice(related.price, related.discount) | currency:'USD':'symbol':'1.0-0' }}
+                  </span>
+                </h5>
+                <h4>{{ related.name }}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BODY: loading -->
+      <div class="modal-body d-flex justify-content-center align-items-center" *ngIf="loading"
+        style="min-height: 400px;">
+        <div class="text-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2">Loading product details...</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="hide()">Close</button>
       </div>
     </div>
   </div>
-
-  
+</div>
